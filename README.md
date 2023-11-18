@@ -104,3 +104,7 @@ FOLDER_ID=value
   "Authorization": Bearer token
 }
 ```
+
+## 4. More Documentation
+
+**https://copyprogramming.com/howto/utf-8-character-encoding-is-not-working-for-spring-boot**

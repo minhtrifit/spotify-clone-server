@@ -9,7 +9,7 @@ import com.spotifyclone.api.repositories.UserRepository;
 @Configuration // Chứa các Bean method
 public class UserDb {
     @Bean
-    CommandLineRunner initDatabase(UserRepository userRepository) {
+    CommandLineRunner initUserDatabase(UserRepository userRepository) {
         return new CommandLineRunner() {
             @Override
             public void run(String... args) throws Exception {
