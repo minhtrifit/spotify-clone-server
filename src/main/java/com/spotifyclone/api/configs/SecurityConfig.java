@@ -62,6 +62,8 @@ public class SecurityConfig {
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> 
             auth.requestMatchers("/**").permitAll()
+                .requestMatchers("/api/v1/audios", "api/v1/artists", "api/v1/albums").permitAll()
+                 .requestMatchers("/upload/**").permitAll()
                 .requestMatchers("/auth", "/auth/all", "/auth/register", "/auth/login").permitAll()
                 .requestMatchers("/auth/profile").authenticated()
                 .requestMatchers("/auth/refresh").authenticated()

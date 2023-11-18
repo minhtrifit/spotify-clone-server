@@ -19,8 +19,8 @@ public class AlbumDb {
             @Override
             public void run(String... args) throws Exception {
                 
-                albumRepository.save(new Album("Top Việt Nam", new ArrayList<Long>(Arrays.asList(1L, 2L)), new Date()));
-                albumRepository.save(new Album("Top Âu Mỹ", new ArrayList<Long>(Arrays.asList(3L)), new Date()));
+                // albumRepository.save(new Album("Top Việt Nam", new ArrayList<Long>(Arrays.asList(1L, 2L)), new Date()));
+                // albumRepository.save(new Album("Top Âu Mỹ", new ArrayList<Long>(Arrays.asList(3L)), new Date()));
             }
         };
     }

@@ -18,26 +18,26 @@ public class AudioDb {
             @Override
             public void run(String... args) throws Exception {
 
-                audioRepository.save(new Audio(
-                    1L,
-                    "Ghé Vào Tai",
-                    new ArrayList<Long>(Arrays.asList(1L)),
-                    new ArrayList<Long>(Arrays.asList(1L)),
-                    "http://docs.google.com/uc?export=open&id=1K_XLMhRmX7roaVqvRl7poO0tq5fwJGbr"));
+                // audioRepository.save(new Audio(
+                //     1L,
+                //     "Ghé Vào Tai",
+                //     new ArrayList<Long>(Arrays.asList(1L)),
+                //     new ArrayList<Long>(Arrays.asList(1L)),
+                //     "http://docs.google.com/uc?export=open&id=1K_XLMhRmX7roaVqvRl7poO0tq5fwJGbr"));
 
-                audioRepository.save(new Audio(
-                    2L,
-                    "11 Giờ 11 Phút",
-                    new ArrayList<Long>(Arrays.asList(2L)),
-                    new ArrayList<Long>(Arrays.asList(1L)),
-                    "http://docs.google.com/uc?export=open&id=1m-TySST7urjDjuqC6gal3-kqB5Vj9Sg2"));
+                // audioRepository.save(new Audio(
+                //     2L,
+                //     "11 Giờ 11 Phút",
+                //     new ArrayList<Long>(Arrays.asList(2L)),
+                //     new ArrayList<Long>(Arrays.asList(1L)),
+                //     "http://docs.google.com/uc?export=open&id=1m-TySST7urjDjuqC6gal3-kqB5Vj9Sg2"));
 
-                audioRepository.save(new Audio(
-                    3L,
-                    "Love Story",
-                    new ArrayList<Long>(Arrays.asList(3L)),
-                    new ArrayList<Long>(Arrays.asList(2L)),
-                    "http://docs.google.com/uc?export=open&id=1A68PdQUGxGgbVDmAsOoTJN8ASpbPgeIF"));
+                // audioRepository.save(new Audio(
+                //     3L,
+                //     "Love Story",
+                //     new ArrayList<Long>(Arrays.asList(3L)),
+                //     new ArrayList<Long>(Arrays.asList(2L)),
+                //     "http://docs.google.com/uc?export=open&id=1A68PdQUGxGgbVDmAsOoTJN8ASpbPgeIF"));
                     
             }
         };

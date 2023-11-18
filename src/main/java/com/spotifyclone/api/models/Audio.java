@@ -63,6 +63,10 @@ public class Audio {
         return this.albums;
     }
 
+    public String getUrl() {
+        return this.url;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -81,5 +85,9 @@ public class Audio {
 
     public void modifyAlbums(Long album) {
         this.albums.add(album);
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }
