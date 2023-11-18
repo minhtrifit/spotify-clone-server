@@ -32,6 +32,14 @@ public class Audio {
 
     public Audio() {}
 
+    public Audio(Long id, String name, List<Long> artists, List<Long> albums, String url) {
+        this.id = id;
+        this.name = name;
+        this.artists = artists;
+        this.albums = albums;
+        this.url = url;
+    }
+
     public Audio(String name, List<Long> artists, List<Long> albums, String url) {
         this.name = name;
         this.artists = artists;
@@ -63,7 +71,15 @@ public class Audio {
         this.artists = artists;
     }
 
+    public void modifyArtists(Long artist) {
+        this.artists.add(artist);
+    }
+
     public void setAlbums(List<Long> albums) {
         this.albums = albums;
+    }
+
+    public void modifyAlbums(Long album) {
+        this.albums.add(album);
     }
 }
