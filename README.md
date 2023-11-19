@@ -43,6 +43,13 @@ REFRESH_TOKEN=value
 FOLDER_ID=value
 ```
 
+## Run audio upload server: `upload-server/`
+
+```bash
+npm install
+npm run start
+```
+
 # 3. API Documentation
 
 ## Register: `[POST]: http://localhost:8080/auth/register`

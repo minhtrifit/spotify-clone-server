@@ -194,7 +194,7 @@ public class MusicService {
             }
 
             return ResponseEntity.status(HttpStatus.CREATED).body(
-                new ResponseObject("201", "Get audio list successfully", newAudio)
+                new ResponseObject("201", "Add new audio successfully", newAudio)
                 );
 
         } catch (Exception e) {
@@ -232,6 +232,18 @@ public class MusicService {
 
             return ResponseEntity.status(HttpStatus.OK).body(
                 new ResponseObject("201", "Delete audio successfully", id)
+                );
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                new ResponseObject("400", "Something wrong", e.getMessage())
+                );
+        }
+    }
+
+    public ResponseEntity<ResponseObject> addNewAlbum(Album newAlbum) {
+        try {
+            return ResponseEntity.status(HttpStatus.CREATED).body(
+                new ResponseObject("201", "Add new album successfully", null)
                 );
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(

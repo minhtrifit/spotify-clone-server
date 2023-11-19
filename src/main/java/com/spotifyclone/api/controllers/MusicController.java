@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.spotifyclone.api.models.Album;
 import com.spotifyclone.api.models.Audio;
 import com.spotifyclone.api.repositories.ResponseObject;
 import com.spotifyclone.api.services.MusicService;
@@ -49,7 +50,7 @@ public class MusicController {
 
     @PostMapping("/add/album")
     @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')") 
-    public ResponseEntity<ResponseObject> addNewAlbum(@RequestBody Audio newAudio) {
-        return musicService.addNewAudio(newAudio);
+    public ResponseEntity<ResponseObject> addNewAlbum(@RequestBody Album newAlbum) {
+        return musicService.addNewAlbum(newAlbum);
     }
 }
