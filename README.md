@@ -161,6 +161,31 @@ npm run start
 
 **Header: Bearer generateToken**
 
+## Add new playlist: `[POST: http://localhost:8080/api/v1/add/playlist`
+
+**Header: Bearer generateToken**
+
+```php
+{
+    "userId": 1,
+    "name": "Nhạc của sadboiz",
+    "audios": [1, 2]
+}
+```
+
+## Edit playlist: `[POST: http://localhost:8080/api/v1/edit/playlist`
+
+**Header: Bearer generateToken**
+
+```php
+{
+    "id": 1,
+    "userId": 1,
+    "name": "Nhạc của sadboiz",
+    "audios": [1, 2, 3]
+}
+```
+
 ## 4. More Documentation
 
 **https://copyprogramming.com/howto/utf-8-character-encoding-is-not-working-for-spring-boot**

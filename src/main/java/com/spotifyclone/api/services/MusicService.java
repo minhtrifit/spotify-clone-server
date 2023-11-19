@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
+import com.spotifyclone.api.entities.UserEntity;
 import com.spotifyclone.api.models.Album;
 import com.spotifyclone.api.models.AlbumLite;
 import com.spotifyclone.api.models.AlbumResponse;
@@ -18,10 +20,13 @@ import com.spotifyclone.api.models.ArtistLite;
 import com.spotifyclone.api.models.Audio;
 import com.spotifyclone.api.models.AudioLite;
 import com.spotifyclone.api.models.AudioResponse;
+import com.spotifyclone.api.models.Playlist;
 import com.spotifyclone.api.repositories.AlbumRepository;
 import com.spotifyclone.api.repositories.ArtistRepository;
 import com.spotifyclone.api.repositories.AudioRepository;
+import com.spotifyclone.api.repositories.PlaylistRepository;
 import com.spotifyclone.api.repositories.ResponseObject;
+import com.spotifyclone.api.repositories.UserRepository;
 
 @Service
 public class MusicService {
@@ -33,6 +38,12 @@ public class MusicService {
 
     @Autowired
     private AlbumRepository albumRepository;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private PlaylistRepository playlistRepository;
 
     public ResponseEntity<ResponseObject> loadAllAudios() {
         try {
@@ -325,6 +336,103 @@ public class MusicService {
 
             return ResponseEntity.status(HttpStatus.OK).body(
                 new ResponseObject("201", "Delete album successfully", id)
+                );
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                new ResponseObject("400", "Something wrong", e.getMessage())
+                );
+        }
+    }
+
+    public ResponseEntity<ResponseObject> addNewPlayist(@RequestBody Playlist newPlaylist) {
+        try {
+            if(newPlaylist.getUserId() == 0 || newPlaylist.getName() == null || newPlaylist.getAudios() == null) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                    new ResponseObject("401", "Bad playist request", newPlaylist)
+                    );
+            }
+
+            Optional<UserEntity> targetUser = userRepository.findById(newPlaylist.getUserId());
+
+            // Check user
+            if(!targetUser.isPresent()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                    new ResponseObject("404", "User not found", newPlaylist)
+                    );
+            }
+
+            // Check audios
+            for (Long audio : newPlaylist.getAudios()) {
+                Optional<Audio> targetAudio = audioRepository.findById(audio);
+                if(!targetAudio.isPresent()) {
+                    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                        new ResponseObject("404", "Audio not found", newPlaylist)
+                        );
+                }
+            }
+
+            playlistRepository.save(newPlaylist);
+
+            return ResponseEntity.status(HttpStatus.CREATED).body(
+                new ResponseObject("201", "Create new playist successfully", newPlaylist)
+                );
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                new ResponseObject("400", "Something wrong", e.getMessage())
+                );
+        }
+    }
+
+    public ResponseEntity<ResponseObject> deletePlaylistById(long id) {
+        try {
+            Optional<Playlist> targetPlaylist = playlistRepository.findById(id);
+
+            if(!targetPlaylist.isPresent()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                    new ResponseObject("404", "Playlist not found", id)
+                    );
+            }
+
+            playlistRepository.deleteById(id);
+
+            return ResponseEntity.status(HttpStatus.OK).body(
+                new ResponseObject("201", "Delete playist successfully", id)
+                );
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                new ResponseObject("400", "Something wrong", e.getMessage())
+                );
+        }
+    }
+
+    public ResponseEntity<ResponseObject> editPlaylist(Playlist editPlaylist) {
+        try {
+            if(editPlaylist.getName() == null || editPlaylist.getAudios() == null) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                    new ResponseObject("401", "Bad edit album request", editPlaylist)
+                    );
+            }
+
+            List<Playlist> playlistSrc = playlistRepository.findAll();
+            Optional<Playlist> targetPlaylist = playlistRepository.findById(editPlaylist.getId());
+
+            if(!targetPlaylist.isPresent()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                    new ResponseObject("404", "Playlist not found", editPlaylist)
+                    );
+            }
+
+            // Update playlist
+            for (Playlist playlist : playlistSrc) {
+                if(playlist.getId() == editPlaylist.getId()) {
+                    playlist.setName(editPlaylist.getName());
+                    playlist.setAudios(editPlaylist.getAudios());
+                    playlistRepository.save(playlist);
+                }
+            }        
+
+            return ResponseEntity.status(HttpStatus.OK).body(
+                new ResponseObject("201", "Edit album successfully", editPlaylist)
                 );
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(

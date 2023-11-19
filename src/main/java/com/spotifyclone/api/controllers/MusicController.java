@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.spotifyclone.api.models.Album;
 import com.spotifyclone.api.models.Audio;
+import com.spotifyclone.api.models.Playlist;
 import com.spotifyclone.api.repositories.ResponseObject;
 import com.spotifyclone.api.services.MusicService;
 
@@ -64,5 +65,23 @@ public class MusicController {
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") 
     public ResponseEntity<ResponseObject> deleteAlbum(@PathVariable long id) {
         return musicService.deleteAlbumById(id);
+    }
+
+    @PostMapping("/add/playlist")
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')") 
+    public ResponseEntity<ResponseObject> addNewPlaylist(@RequestBody Playlist newPlaylist) {
+        return musicService.addNewPlayist(newPlaylist);
+    }
+
+    @PostMapping("/edit/playlist")
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')") 
+    public ResponseEntity<ResponseObject> editPlaylist(@RequestBody Playlist editPlaylist) {
+        return musicService.editPlaylist(editPlaylist);
+    }
+
+    @PostMapping("/delete/playlist/{id}")
+    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") 
+    public ResponseEntity<ResponseObject> deletePlaylist(@PathVariable long id) {
+        return musicService.deletePlaylistById(id);
     }
 }

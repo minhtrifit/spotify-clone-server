@@ -1,10 +1,7 @@
 package com.spotifyclone.api.models;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-
-import org.hibernate.annotations.CreationTimestamp;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
@@ -13,41 +10,38 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 
 @Entity
-@Table(name = "tbl_album")
-public class Album {
+@Table(name = "tbl_playlist")
+public class Playlist {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private long id;
+
+    @Column(name = "user_id")
+    private long user_id;
 
     @Column(name = "name", columnDefinition="VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_bin")
     private String name;
 
     @ElementCollection
+    @Column(name = "audios")
     private List<Long> audios;
 
-    @CreationTimestamp
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "createdAt")
-    private Date createdAt;
+    public Playlist() {}
 
-    @Column(name = "avatar")
-    private String avatar;
-
-    public Album () {}
-
-    public Album (String name, List<Long> audios, Date createdAt, String avatar) {
+    public Playlist(long user_id, String name, List<Long> audios) {
+        this.user_id = user_id;
         this.name = name;
         this.audios = audios;
-        this.createdAt = createdAt;
-        this.avatar = avatar;
     }
 
     public long getId() {
         return this.id;
+    }
+
+    public long getUserId() {
+        return this.user_id;
     }
 
     public String getName() {
@@ -58,16 +52,8 @@ public class Album {
         return this.audios;
     }
 
-    public Date getCreatedAt() {
-        return this.createdAt;
-    }
-
-    public String getAvatar() {
-        return this.avatar;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+    public void setUserId(long user_id) {
+        this.user_id = user_id;
     }
 
     public void setName(String name) {
@@ -95,13 +81,4 @@ public class Album {
 
         this.audios = newList;
     }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public void setAvatar(String avatar) {
-        this.avatar = avatar;
-    }
 }
-
