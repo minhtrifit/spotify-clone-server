@@ -6,6 +6,8 @@
 
 # 1. Install mysql (using Docker)
 
+* If you have installed MySql (Xampp or anything else), you can skip this step.
+
 ## Run docker-compose: `docker-compose -f .\docker-compose.yml up`
 
 ## PhpMyAdmin: `http://localhost:8090`
@@ -15,11 +17,17 @@ username: root
 password: password
 ```
 
-## Create database: `spotify_clone`
+# 2. Server config setting
 
-# 2. Config setting
+* Note: This repository use **TWO** server.
+
+**1. Main server with Spring Boot.**
+**2. NodeJS(ExpressJS) server to upload audio file.**
 
 ## application.properties: `src/main/resources/application.properties`
+
+* This config file to map your Mysql database with Spring Boot project
+* Change: "url, username, password" value for example `spotify_clone, root, password`
 
 ```php
 spring.main.allow-circular-references=true
@@ -41,6 +49,9 @@ spring.jpa.properties.hibernate.use_nationalized_character_data =true
 ```
 
 ## .env config: `upload-server/.env`
+
+**Config ExpressJS server, this server using [Google Drive API](https://www.npmjs.com/package/@googleapis/drive) two upload Audio file.**
+**How to get Google Drive API key, you can check out: [Youtube tutorial](https://www.youtube.com/watch?v=1y0-IfRW114)**
 
 ```bash
 PORT=5500
@@ -126,7 +137,7 @@ npm run start
 
 ## Get image url: `[GET]: http://localhost:8080/upload/files/1.png`
 
-## Add new audio: `[POST: http://localhost:8080/api/v1/add/audio`
+## Add new audio: `[POST]: http://localhost:8080/api/v1/add/audio`
 
 **Header: Bearer generateToken**
 
@@ -139,11 +150,11 @@ npm run start
 }
 ```
 
-## Delete audio by id: `[POST: http://localhost:8080/api/v1/delete/audio/id`
+## Delete audio by id: `[POST]: http://localhost:8080/api/v1/delete/audio/id`
 
 **Header: Bearer generateToken**
 
-## Add new album: `[POST: http://localhost:8080/api/v1/add/album`
+## Add new album: `[POST]: http://localhost:8080/api/v1/add/album`
 
 **Header: Bearer generateToken**
 
@@ -154,7 +165,7 @@ npm run start
 }
 ```
 
-## Edit album: `[POST: http://localhost:8080/api/v1/edit/album`
+## Edit album: `[POST]: http://localhost:8080/api/v1/edit/album`
 
 **Header: Bearer generateToken**
 
@@ -166,11 +177,11 @@ npm run start
 }
 ```
 
-## Delete album by id: `[POST: http://localhost:8080/api/v1/delete/album/id`
+## Delete album by id: `[POST]: http://localhost:8080/api/v1/delete/album/id`
 
 **Header: Bearer generateToken**
 
-## Add new playlist: `[POST: http://localhost:8080/api/v1/add/playlist`
+## Add new playlist: `[POST]: http://localhost:8080/api/v1/add/playlist`
 
 **Header: Bearer generateToken**
 
@@ -182,7 +193,7 @@ npm run start
 }
 ```
 
-## Edit playlist: `[POST: http://localhost:8080/api/v1/edit/playlist`
+## Edit playlist: `[POST]: http://localhost:8080/api/v1/edit/playlist`
 
 **Header: Bearer generateToken**
 
