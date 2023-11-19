@@ -20,17 +20,22 @@ public class Artist {
     @Column(name = "followers")
     private long followers;
 
+    @Column(name = "avatar")
+    private String avatar;
+
     public Artist() {}
 
-    public Artist(long id, String name, long followers) {
+    public Artist(long id, String name, long followers, String avatar) {
         this.id = id;
         this.name = name;
         this.followers = followers;
+        this.avatar = avatar;
     }
 
-    public Artist(String name, long followers) {
+    public Artist(String name, long followers, String avatar) {
         this.name = name;
         this.followers = followers;
+        this.avatar = avatar;
     }
 
     public long getId() {
@@ -45,11 +50,19 @@ public class Artist {
         return this.followers;
     }
 
+    public String getAvatar() {
+        return this.avatar;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
 
     public void setFollowers(long followers) {
         this.followers = followers;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 }

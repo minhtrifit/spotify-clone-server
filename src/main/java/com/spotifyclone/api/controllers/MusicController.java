@@ -1,7 +1,6 @@
 package com.spotifyclone.api.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -43,8 +42,14 @@ public class MusicController {
     }
 
     @PostMapping("/delete/audio/{id}")
-    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')") 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')") 
     public ResponseEntity<ResponseObject> deleteAudio(@PathVariable long id) {
         return musicService.deleteAudioById(id);
+    }
+
+    @PostMapping("/add/album")
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')") 
+    public ResponseEntity<ResponseObject> addNewAlbum(@RequestBody Audio newAudio) {
+        return musicService.addNewAudio(newAudio);
     }
 }

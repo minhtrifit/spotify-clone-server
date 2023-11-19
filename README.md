@@ -104,6 +104,11 @@ FOLDER_ID=value
   "Authorization": Bearer token
 }
 ```
+## Upload new image: `[POST]: http://localhost:8080/upload`
+
+**form-data: file choosefile**
+
+## Get image url: `[GET]: http://localhost:8080/upload/files/1.png`
 
 ## Add new audio: `[POST: http://localhost:8080/api/v1/add/audio`
 
