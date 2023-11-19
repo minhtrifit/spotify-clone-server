@@ -70,7 +70,7 @@ public class SecurityConfig {
                 .requestMatchers("/auth/user/**").authenticated()
                 .requestMatchers("/auth/admin/**").authenticated()
                 .requestMatchers("/api/v1/add/audio", "/api/v1/add/playlist", "/api/v1/delete/audio/**").authenticated()
-                .requestMatchers("/api/v1/add/album", "/api/v1/edit/album").authenticated()
+                .requestMatchers("/api/v1/add/album", "/api/v1/edit/album", "/api/v1/delete/album/**").authenticated()
                 .requestMatchers("/error").permitAll()
                 .anyRequest().authenticated()
             );

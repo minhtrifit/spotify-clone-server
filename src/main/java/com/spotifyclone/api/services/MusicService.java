@@ -1,6 +1,5 @@
 package com.spotifyclone.api.services;
 
-import java.security.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
