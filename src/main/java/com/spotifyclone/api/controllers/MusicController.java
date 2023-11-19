@@ -53,4 +53,16 @@ public class MusicController {
     public ResponseEntity<ResponseObject> addNewAlbum(@RequestBody Album newAlbum) {
         return musicService.addNewAlbum(newAlbum);
     }
+
+    @PostMapping("/edit/album")
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')") 
+    public ResponseEntity<ResponseObject> editAlbum(@RequestBody Album editAlbum) {
+        return musicService.editAlbum(editAlbum);
+    }
+
+    @PostMapping("/delete/album/{id}")
+    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") 
+    public ResponseEntity<ResponseObject> deleteAlbum(@PathVariable long id) {
+        return musicService.deleteAlbumById(id);
+    }
 }

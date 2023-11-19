@@ -7,6 +7,7 @@ public class AlbumResponse {
     private long id;
     private String name;
     private List<AudioLite> audios;
+    private String createdAt;
 
     public AlbumResponse() {}
 
@@ -28,6 +29,10 @@ public class AlbumResponse {
         return this.audios;
     }
 
+    public String getCreatedAt() {
+        return this.createdAt;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -44,5 +49,9 @@ public class AlbumResponse {
         if(this.audios == null) this.audios = new ArrayList<>();
 
         this.audios.add(audio);
+    }
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
     }
 }

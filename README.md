@@ -130,10 +130,36 @@ npm run start
 }
 ```
 
-## Delete audio by od: `[POST: http://localhost:8080/api/v1/delete/audio/id`
+## Delete audio by id: `[POST: http://localhost:8080/api/v1/delete/audio/id`
 
 **Header: Bearer generateToken**
 
+## Add new album: `[POST: http://localhost:8080/api/v1/add/album`
+
+**Header: Bearer generateToken**
+
+```php
+{
+    "name": "Lofi chill",
+    "audios": [1, 2]
+}
+```
+
+## Edit album: `[POST: http://localhost:8080/api/v1/edit/album`
+
+**Header: Bearer generateToken**
+
+```php
+{
+    "id": 3,
+    "name": "Lofi chill",
+    "audios": [1, 2, 3]
+}
+```
+
+## Delete album by id: `[POST: http://localhost:8080/api/v1/delete/album/id`
+
+**Header: Bearer generateToken**
 
 ## 4. More Documentation
 

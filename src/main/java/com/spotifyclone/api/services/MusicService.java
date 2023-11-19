@@ -1,6 +1,8 @@
 package com.spotifyclone.api.services;
 
+import java.security.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -114,6 +116,9 @@ public class MusicService {
                         }
                     }
                 }
+            
+                String formatCreatedAt = album.getCreatedAt().toString();
+                newAlbum.setCreatedAt(formatCreatedAt);
 
                 albums.add(newAlbum);
             }
@@ -242,8 +247,85 @@ public class MusicService {
 
     public ResponseEntity<ResponseObject> addNewAlbum(Album newAlbum) {
         try {
+            if(newAlbum.getName() == null || newAlbum.getAudios() == null) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                    new ResponseObject("401", "Bad new album request", newAlbum)
+                    );
+            }
+          
+            // Created-at
+            newAlbum.setCreatedAt(new Date());
+
+            albumRepository.save(newAlbum);
+
             return ResponseEntity.status(HttpStatus.CREATED).body(
-                new ResponseObject("201", "Add new album successfully", null)
+                new ResponseObject("201", "Add new album successfully", newAlbum)
+                );
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                new ResponseObject("400", "Something wrong", e.getMessage())
+                );
+        }
+    }
+
+     public ResponseEntity<ResponseObject> editAlbum(Album editAlbum) {
+        try {
+            if(editAlbum.getName() == null || editAlbum.getAudios() == null) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                    new ResponseObject("401", "Bad edit album request", editAlbum)
+                    );
+            }
+
+            List<Album> albumSrc = albumRepository.findAll();
+            Optional<Album> targetAlbum = albumRepository.findById(editAlbum.getId());
+
+            if(!targetAlbum.isPresent()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                    new ResponseObject("404", "Album not found", editAlbum)
+                    );
+            }
+
+            // Update album
+            for (Album album : albumSrc) {
+                if(album.getId() == editAlbum.getId()) {
+                    album.setName(editAlbum.getName());
+                    album.setAudios(editAlbum.getAudios());
+                    albumRepository.save(album);
+                }
+            }
+
+            // Add audio to album if not exist
+            // for (Long audio : editAlbum.getAudios()) {
+            //     if(!editAlbum.getAudios().contains(audio)) {
+            //         editAlbum.modifyAudios(audio);
+            //     }
+            // }
+            
+
+            return ResponseEntity.status(HttpStatus.OK).body(
+                new ResponseObject("201", "Edit album successfully", editAlbum)
+                );
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                new ResponseObject("400", "Something wrong", e.getMessage())
+                );
+        }
+    }
+
+    public ResponseEntity<ResponseObject> deleteAlbumById(long id) {
+        try {
+            Optional<Album> targetAlbum = albumRepository.findById(id);
+
+            if(!targetAlbum.isPresent()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                    new ResponseObject("404", "Album not found", id)
+                    );
+            }
+
+            albumRepository.deleteById(id);
+
+            return ResponseEntity.status(HttpStatus.OK).body(
+                new ResponseObject("201", "Delete album successfully", id)
                 );
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
