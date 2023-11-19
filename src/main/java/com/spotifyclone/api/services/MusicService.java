@@ -2,6 +2,7 @@ package com.spotifyclone.api.services;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -33,77 +34,209 @@ public class MusicService {
     private AlbumRepository albumRepository;
 
     public ResponseEntity<ResponseObject> loadAllAudios() {
-        List<Audio> audioSrc = audioRepository.findAll();
-        List<Artist> artistSrc = artistRepository.findAll();
-        List<Album> albumSrc = albumRepository.findAll();
+        try {
+            List<Audio> audioSrc = audioRepository.findAll();
+            List<Artist> artistSrc = artistRepository.findAll();
+            List<Album> albumSrc = albumRepository.findAll();
 
-        List<AudioResponse> audios = new ArrayList<>();
+            List<AudioResponse> audios = new ArrayList<>();
 
-        for (Audio audio : audioSrc) {
-            AudioResponse newAudio = new AudioResponse();
+            for (Audio audio : audioSrc) {
+                AudioResponse newAudio = new AudioResponse();
 
-            newAudio.setId(audio.getId());
-            newAudio.setName(audio.getName());
-            newAudio.setUrl(audio.getUrl());
+                newAudio.setId(audio.getId());
+                newAudio.setName(audio.getName());
+                newAudio.setUrl(audio.getUrl());
 
-            // Get artists name
-            for (Long artist : audio.getArtists()) {
-                for (Artist artistData : artistSrc) {
-                    if(artist == artistData.getId()) {
-                        newAudio.modifyArtists(new ArtistLite(artistData.getId(), artistData.getName()));
+                // Get artists name
+                for (Long artist : audio.getArtists()) {
+                    for (Artist artistData : artistSrc) {
+                        if(artist == artistData.getId()) {
+                            newAudio.modifyArtists(new ArtistLite(artistData.getId(), artistData.getName()));
+                        }
                     }
                 }
-            }
 
-            // Get albums name
-            for (Long album : audio.getAlbums()) {
-                for (Album albumData : albumSrc) {
-                    if(album == albumData.getId()) {
-                        newAudio.modifyAlbums(new AlbumLite(albumData.getId(), albumData.getName()));
+                // Get albums name
+                for (Long album : audio.getAlbums()) {
+                    for (Album albumData : albumSrc) {
+                        if(album == albumData.getId()) {
+                            newAudio.modifyAlbums(new AlbumLite(albumData.getId(), albumData.getName()));
+                        }
                     }
                 }
+
+                audios.add(newAudio);
             }
 
-            audios.add(newAudio);
-        }
+            return ResponseEntity.status(HttpStatus.OK).body(
+                new ResponseObject("200", "Get audio list successfully", audios)
+                );
 
-        return ResponseEntity.status(HttpStatus.OK).body(
-            new ResponseObject("200", "Get audio list successfully", audios)
-            );
+        } catch (Exception e) {
+           return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                new ResponseObject("400", "Something wrong", e.getMessage())
+                );
+        }     
     }
 
     public ResponseEntity<ResponseObject> loadAllArtists() {
-        return ResponseEntity.status(HttpStatus.OK).body(
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(
             new ResponseObject("200", "Get audio list successfully", artistRepository.findAll())
             );
+
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                new ResponseObject("400", "Something wrong", e.getMessage())
+                );
+        }     
     }
 
     public ResponseEntity<ResponseObject> loadAllAlbums() {
-        List<Album> albumSrc = albumRepository.findAll();
-        List<Audio> audioSrc = audioRepository.findAll();
+        try {
+            List<Album> albumSrc = albumRepository.findAll();
+            List<Audio> audioSrc = audioRepository.findAll();
 
-        List<AlbumResponse> albums = new ArrayList<>();
+            List<AlbumResponse> albums = new ArrayList<>();
 
-        for (Album album : albumSrc) {
-            AlbumResponse newAlbum = new AlbumResponse();
+            for (Album album : albumSrc) {
+                AlbumResponse newAlbum = new AlbumResponse();
 
-            newAlbum.setId(album.getId());
-            newAlbum.setName(album.getName());
+                newAlbum.setId(album.getId());
+                newAlbum.setName(album.getName());
 
-            // Get artists name
-            for (Long audio : album.getAudios()) {
-                for (Audio audioData : audioSrc) {
-                    if(audio == audioData.getId()) {
-                        newAlbum.modifyAudios(new AudioLite(audioData.getId(), audioData.getName()));
+                // Get artists name
+                for (Long audio : album.getAudios()) {
+                    for (Audio audioData : audioSrc) {
+                        if(audio == audioData.getId()) {
+                            newAlbum.modifyAudios(new AudioLite(audioData.getId(), audioData.getName()));
+                        }
+                    }
+                }
+
+                albums.add(newAlbum);
+            }
+
+            return ResponseEntity.status(HttpStatus.OK).body(
+                new ResponseObject("200", "Get audio list successfully", albums)
+                );
+
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                new ResponseObject("400", "Something wrong", e.getMessage())
+                );
+        }
+    }
+
+    public ResponseEntity<ResponseObject> addNewAudio(Audio newAudio) {
+        try {
+            String name = newAudio.getName();
+            List<Long> artists = new ArrayList<>();
+            artists = newAudio.getArtists();
+            List<Long> albums = new ArrayList<>();
+            albums = newAudio.getAlbums();
+            String url = newAudio.getUrl();
+
+            Boolean checkExistArtist = true;
+            Boolean checkExistAlbum = true;
+
+            // Check bad request
+            if(name == null || artists == null || albums == null || url == null) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                    new ResponseObject("401", "Bad new audio request", newAudio)
+                    );
+            }
+
+            // Check exist artist
+            for (Long artist : artists) {
+                Optional<Artist> targetArtist = artistRepository.findById(artist);
+
+                if(!targetArtist.isPresent()) {
+                    checkExistArtist = false;
+                }
+            }
+
+            if(checkExistArtist == false) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                    new ResponseObject("404", "Artists not found", newAudio)
+                    );
+            }
+
+            // Check exist album
+            for (Long album : albums) {
+                Optional<Album> targetAlbum = albumRepository.findById(album);
+
+                if(!targetAlbum.isPresent()) {
+                    checkExistAlbum = false;
+                }
+            }
+
+            if(checkExistAlbum == false) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                    new ResponseObject("404", "Albums not found", newAudio)
+                    );
+            }
+
+            // Save new audio
+            audioRepository.save(newAudio);
+
+            // Save albums
+            List<Album> albumSrc = albumRepository.findAll();
+
+            for (Album album : albumSrc) {
+                for (Long albumData : newAudio.getAlbums()) {
+                    if(album.getId() == albumData) {
+                        album.modifyAudios(newAudio.getId());
+                        albumRepository.save(album);
                     }
                 }
             }
 
-            albums.add(newAlbum);
-        }
+            return ResponseEntity.status(HttpStatus.CREATED).body(
+                new ResponseObject("201", "Get audio list successfully", newAudio)
+                );
 
-        return ResponseEntity.status(HttpStatus.OK).body(
-            new ResponseObject("200", "Get audio list successfully", albums)
-            );
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                new ResponseObject("400", "Something wrong", e.getMessage())
+                );
+        }
+    }
+
+    public ResponseEntity<ResponseObject> deleteAudioById(long id) {
+        try {
+            Optional<Audio> targetAudio = audioRepository.findById(id);
+
+            if(!targetAudio.isPresent()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                    new ResponseObject("404", "Audio not found", id)
+                    );
+            }
+
+            // Delete audio
+            audioRepository.deleteById(id);
+
+            // Delete audio from albums
+            List<Album> albumSrc = albumRepository.findAll();
+
+            for (Album album : albumSrc) {
+                for (Long audio : album.getAudios()) {
+                    if(audio == id) {
+                        album.filterAudios(id);
+
+                        albumRepository.save(album);
+                    }
+                }
+            }
+
+            return ResponseEntity.status(HttpStatus.OK).body(
+                new ResponseObject("201", "Delete audio successfully", id)
+                );
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                new ResponseObject("400", "Something wrong", e.getMessage())
+                );
+        }
     }
 }

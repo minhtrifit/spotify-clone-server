@@ -105,6 +105,24 @@ FOLDER_ID=value
 }
 ```
 
+## Add new audio: `[POST: http://localhost:8080/api/v1/add/audio`
+
+**Header: Bearer generateToken**
+
+```php
+{
+    "name": "Bài ca dành cho em",
+    "artist": [2],
+    "albums": [1],
+    "url": "http://example.com"
+}
+```
+
+## Delete audio by od: `[POST: http://localhost:8080/api/v1/delete/audio/id`
+
+**Header: Bearer generateToken**
+
+
 ## 4. More Documentation
 
 **https://copyprogramming.com/howto/utf-8-character-encoding-is-not-working-for-spring-boot**

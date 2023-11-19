@@ -1,5 +1,6 @@
 package com.spotifyclone.api.models;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -66,7 +67,21 @@ public class Album {
     }
 
     public void modifyAudios(Long audio) {
+        if(this.audios == null) this.audios = new ArrayList<>();
+
         this.audios.add(audio);
+    }
+
+    public void filterAudios(Long audio) {
+        if(this.audios == null) this.audios = new ArrayList<>();
+
+        List<Long> newList = new ArrayList<>();
+
+        for (Long data : this.audios) {
+            if(data != audio) newList.add(data);
+        }
+
+        this.audios = newList;
     }
 
     public void setCreatedAt(Date createdAt) {

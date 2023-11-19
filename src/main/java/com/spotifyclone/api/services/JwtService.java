@@ -29,7 +29,7 @@ public class JwtService {
 
         // accessToken: 20 second
         // refreshToken: 1 minutes
-        Token token = new Token(createToken(claims, userName, 20000), createToken(claims, userName, 60000));
+        Token token = new Token(createToken(claims, userName, 20000), createToken(claims, userName, 300000));
 
         return ResponseEntity.status(HttpStatus.OK).body(
             new ResponseObject("200", "Generate token successfully", token)

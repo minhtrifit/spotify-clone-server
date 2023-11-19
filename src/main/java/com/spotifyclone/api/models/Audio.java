@@ -1,5 +1,6 @@
 package com.spotifyclone.api.models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.Column;
@@ -76,6 +77,8 @@ public class Audio {
     }
 
     public void modifyArtists(Long artist) {
+        if(this.artists == null) this.artists = new ArrayList<>();
+
         this.artists.add(artist);
     }
 
@@ -84,6 +87,8 @@ public class Audio {
     }
 
     public void modifyAlbums(Long album) {
+        if(this.albums == null) this.albums = new ArrayList<>();
+        
         this.albums.add(album);
     }
 

@@ -69,6 +69,7 @@ public class SecurityConfig {
                 .requestMatchers("/auth/refresh").authenticated()
                 .requestMatchers("/auth/user/**").authenticated()
                 .requestMatchers("/auth/admin/**").authenticated()
+                .requestMatchers("/api/v1/add/audio", "/api/v1/add/playlist", "/api/v1/delete/audio/**").authenticated()
                 .requestMatchers("/error").permitAll()   
                 .anyRequest().authenticated()
             );
