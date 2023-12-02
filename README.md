@@ -131,11 +131,18 @@ npm run start
   "Authorization": Bearer token
 }
 ```
+
+---
+
 ## Upload new image: `[POST]: http://localhost:8080/upload`
 
 **form-data: file choosefile**
 
 ## Get image url: `[GET]: http://localhost:8080/upload/files/1.png`
+
+---
+
+## Get all audio: `[GET]: http://localhost:8080/api/v1/audios`
 
 ## Add new audio: `[POST]: http://localhost:8080/api/v1/add/audio`
 
@@ -153,6 +160,14 @@ npm run start
 ## Delete audio by id: `[POST]: http://localhost:8080/api/v1/delete/audio/id`
 
 **Header: Bearer generateToken**
+
+---
+
+## Get all artists: `[GET]: http://localhost:8080/api/v1/artists`
+
+---
+
+## Get all albums: `[GET]: http://localhost:8080/api/v1/albums`
 
 ## Add new album: `[POST]: http://localhost:8080/api/v1/add/album`
 
@@ -180,6 +195,8 @@ npm run start
 ## Delete album by id: `[POST]: http://localhost:8080/api/v1/delete/album/id`
 
 **Header: Bearer generateToken**
+
+---
 
 ## Add new playlist: `[POST]: http://localhost:8080/api/v1/add/playlist`
 
