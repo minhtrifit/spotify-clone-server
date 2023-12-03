@@ -93,6 +93,54 @@ public class MusicService {
         }     
     }
 
+    public ResponseEntity<ResponseObject> getAudioByid(long id) {
+        try {
+            List<Artist> artistSrc = artistRepository.findAll();
+            List<Album> albumSrc = albumRepository.findAll();
+
+            Optional<Audio> targetAudio = audioRepository.findById(id);
+
+            if(!targetAudio.isPresent()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                    new ResponseObject("404", "Audio not found", id)
+                    );
+            }
+
+            AudioResponse newAudio = new AudioResponse();
+
+            newAudio.setId(targetAudio.get().getId());
+            newAudio.setName(targetAudio.get().getName());
+            newAudio.setUrl(targetAudio.get().getUrl());
+            newAudio.setAvatar(targetAudio.get().getAvatar());
+
+            // Get artists name
+            for (Long artist : targetAudio.get().getArtists()) {
+                for (Artist artistData : artistSrc) {
+                    if(artist == artistData.getId()) {
+                        newAudio.modifyArtists(new ArtistLite(artistData.getId(), artistData.getName()));
+                    }
+                }
+            }
+
+            // Get albums name
+            for (Long album : targetAudio.get().getAlbums()) {
+                for (Album albumData : albumSrc) {
+                    if(album == albumData.getId()) {
+                        newAudio.modifyAlbums(new AlbumLite(albumData.getId(), albumData.getName()));
+                    }
+                }
+            }
+
+            return ResponseEntity.status(HttpStatus.OK).body(
+                new ResponseObject("200", "Get audio successfully", newAudio)
+                );
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                new ResponseObject("400", "Something wrong", e.getMessage())
+                );
+        }
+    }
+
     public ResponseEntity<ResponseObject> loadAllArtists() {
         try {
             return ResponseEntity.status(HttpStatus.OK).body(
