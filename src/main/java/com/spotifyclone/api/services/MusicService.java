@@ -158,6 +158,7 @@ public class MusicService {
         try {
             List<Album> albumSrc = albumRepository.findAll();
             List<Audio> audioSrc = audioRepository.findAll();
+            List<Artist> artistSrc = artistRepository.findAll();
 
             List<AlbumResponse> albums = new ArrayList<>();
 
@@ -168,14 +169,32 @@ public class MusicService {
                 newAlbum.setName(album.getName());
                 newAlbum.setAvatar(album.getAvatar());
 
-                // Get artists name
+                // Get audio
                 for (Long audio : album.getAudios()) {
                     for (Audio audioData : audioSrc) {
                         if(audio == audioData.getId()) {
-                            newAlbum.modifyAudios(new AudioLite(audioData.getId(), audioData.getName()));
+                            // newAlbum.modifyAudios(new AudioLite(audioData.getId(), audioData.getName()));
+
+                            List<ArtistLite> artists = new ArrayList<>();
+                            List<Long> artistByAudio = audioData.getArtists();
+
+                            // Get artist
+                            for (Artist artist: artistSrc) {
+                                if(artistByAudio.contains(artist.getId())) {
+                                    artists.add(new ArtistLite(artist.getId(), artist.getName(), artist.getAvatar()));
+                                }
+                            }
+
+                            newAlbum.modifyAudios(new AudioLite(
+                                audioData.getId(),
+                                audioData.getName(),
+                                artists,
+                                audioData.getUrl(),
+                                audioData.getAvatar()));
+
                         }
                     }
-                }
+                }               
             
                 String formatCreatedAt = album.getCreatedAt().toString();
                 newAlbum.setCreatedAt(formatCreatedAt);
@@ -184,7 +203,66 @@ public class MusicService {
             }
 
             return ResponseEntity.status(HttpStatus.OK).body(
-                new ResponseObject("200", "Get audio list successfully", albums)
+                new ResponseObject("200", "Get album list successfully", albums)
+                );
+
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                new ResponseObject("400", "Something wrong", e.getMessage())
+                );
+        }
+    }
+
+    public ResponseEntity<ResponseObject> getAlbumById(long id) {
+        try {
+            List<Audio> audioSrc = audioRepository.findAll();
+            List<Artist> artistSrc = artistRepository.findAll();
+
+            Optional<Album> targetAlbum = albumRepository.findById(id);
+
+            if(!targetAlbum.isPresent()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                    new ResponseObject("404", "Album not found", id)
+                    );
+            }
+
+            AlbumResponse newAlbum = new AlbumResponse();
+
+            newAlbum.setId(targetAlbum.get().getId());
+            newAlbum.setName(targetAlbum.get().getName());
+            newAlbum.setAvatar(targetAlbum.get().getAvatar());
+
+            // Get audio
+            for (Long audio : targetAlbum.get().getAudios()) {
+                for (Audio audioData : audioSrc) {
+                    if(audio == audioData.getId()) {
+                        List<ArtistLite> artists = new ArrayList<>();
+                        List<Long> artistByAudio = audioData.getArtists();
+
+                        // Get artist
+                        for (Artist artist: artistSrc) {
+                            if(artistByAudio.contains(artist.getId())) {
+                                artists.add(new ArtistLite(artist.getId(), artist.getName(), artist.getAvatar()));
+                            }
+                        }
+
+                        newAlbum.modifyAudios(new AudioLite(
+                            audioData.getId(),
+                            audioData.getName(),
+                            artists,
+                            audioData.getUrl(),
+                            audioData.getAvatar()));
+
+                    }
+                }
+            }               
+        
+            String formatCreatedAt = targetAlbum.get().getCreatedAt().toString();
+            newAlbum.setCreatedAt(formatCreatedAt);
+
+
+            return ResponseEntity.status(HttpStatus.OK).body(
+                new ResponseObject("200", "Get album successfully", newAlbum)
                 );
 
         } catch (Exception e) {

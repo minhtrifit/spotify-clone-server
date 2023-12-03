@@ -42,6 +42,11 @@ public class MusicController {
         return musicService.loadAllAlbums();
     }
 
+    @GetMapping("/album/{id}")
+    public ResponseEntity<ResponseObject> getAlbumById(@PathVariable long id) {
+        return musicService.getAlbumById(id);
+    }
+
     @PostMapping("/add/audio")
     @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')") 
     public ResponseEntity<ResponseObject> addNewAudio(@RequestBody Audio newAudio) {
