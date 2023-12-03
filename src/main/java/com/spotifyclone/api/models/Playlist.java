@@ -28,12 +28,16 @@ public class Playlist {
     @Column(name = "audios")
     private List<Long> audios;
 
+    @Column(name = "avatar")
+    private String avatar;
+
     public Playlist() {}
 
-    public Playlist(long user_id, String name, List<Long> audios) {
+    public Playlist(long user_id, String name, List<Long> audios, String avatar) {
         this.user_id = user_id;
         this.name = name;
         this.audios = audios;
+        this.avatar = avatar;
     }
 
     public long getId() {
@@ -50,6 +54,10 @@ public class Playlist {
 
     public List<Long> getAudios() {
         return this.audios;
+    }
+
+    public String getAvatar() {
+        return this.avatar;
     }
 
     public void setUserId(long user_id) {
@@ -80,5 +88,9 @@ public class Playlist {
         }
 
         this.audios = newList;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 }

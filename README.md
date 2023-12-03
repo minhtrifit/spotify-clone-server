@@ -190,7 +190,8 @@ npm run start
 {
     "id": 3,
     "name": "Lofi chill",
-    "audios": [1, 2, 3]
+    "audios": [1, 2, 3],
+    "avatar": "http://localhost:8080/upload/files/example.png"
 }
 ```
 
@@ -208,7 +209,8 @@ npm run start
 {
     "userId": 1,
     "name": "Nhạc của sadboiz",
-    "audios": [1, 2]
+    "audios": [1, 2],
+    "avatar": "http://localhost:8080/upload/files/example.png"
 }
 ```
 
@@ -221,7 +223,8 @@ npm run start
     "id": 1,
     "userId": 1,
     "name": "Nhạc của sadboiz",
-    "audios": [1, 2, 3]
+    "audios": [1, 2, 3],
+    "avatar": "http://localhost:8080/upload/files/example.png"
 }
 ```
 

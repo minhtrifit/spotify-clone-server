@@ -350,7 +350,8 @@ public class MusicService {
 
     public ResponseEntity<ResponseObject> addNewPlayist(@RequestBody Playlist newPlaylist) {
         try {
-            if(newPlaylist.getUserId() == 0 || newPlaylist.getName() == null || newPlaylist.getAudios() == null) {
+            if(newPlaylist.getUserId() == 0 || newPlaylist.getName() == null ||
+            newPlaylist.getAudios() == null || newPlaylist.getAvatar() == null) {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
                     new ResponseObject("401", "Bad playist request", newPlaylist)
                     );
@@ -431,6 +432,7 @@ public class MusicService {
                 if(playlist.getId() == editPlaylist.getId()) {
                     playlist.setName(editPlaylist.getName());
                     playlist.setAudios(editPlaylist.getAudios());
+                    playlist.setAvatar(editPlaylist.getAvatar());
                     playlistRepository.save(playlist);
                 }
             }        
