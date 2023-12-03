@@ -65,7 +65,7 @@ public class MusicService {
                 for (Long artist : audio.getArtists()) {
                     for (Artist artistData : artistSrc) {
                         if(artist == artistData.getId()) {
-                            newAudio.modifyArtists(new ArtistLite(artistData.getId(), artistData.getName()));
+                            newAudio.modifyArtists(new ArtistLite(artistData.getId(), artistData.getName(), artistData.getAvatar()));
                         }
                     }
                 }
@@ -117,7 +117,7 @@ public class MusicService {
             for (Long artist : targetAudio.get().getArtists()) {
                 for (Artist artistData : artistSrc) {
                     if(artist == artistData.getId()) {
-                        newAudio.modifyArtists(new ArtistLite(artistData.getId(), artistData.getName()));
+                        newAudio.modifyArtists(new ArtistLite(artistData.getId(), artistData.getName(), artistData.getAvatar()));
                     }
                 }
             }
