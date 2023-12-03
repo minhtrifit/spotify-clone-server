@@ -9,15 +9,17 @@ public class AudioResponse {
     private List<ArtistLite> artists;
     private List<AlbumLite> albums;
     private String url;
+    private String avatar;
 
     public AudioResponse() {}
 
-    public AudioResponse(long id, String name, List<ArtistLite> artists, List<AlbumLite> albums, String url) {
+    public AudioResponse(long id, String name, List<ArtistLite> artists, List<AlbumLite> albums, String url, String avatar) {
         this.id = id;
         this.name = name;
         this.artists = artists;
         this.albums = albums;
         this.url = url;
+        this.avatar = avatar;
     }
 
     public long getId() {
@@ -38,6 +40,10 @@ public class AudioResponse {
 
     public String getUrl() {
         return this.url;
+    }
+
+    public String getAvatar() {
+        return this.avatar;
     }
 
     public void setId(Long id) {
@@ -70,5 +76,9 @@ public class AudioResponse {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 }

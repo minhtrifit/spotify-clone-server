@@ -153,7 +153,8 @@ npm run start
     "name": "Bài ca dành cho em",
     "artist": [2],
     "albums": [1],
-    "url": "http://example.com"
+    "url": "http://example.com",
+    "avatar": "http://localhost:8080/upload/files/example.png",
 }
 ```
 
@@ -176,7 +177,8 @@ npm run start
 ```php
 {
     "name": "Lofi chill",
-    "audios": [1, 2]
+    "audios": [1, 2],
+    "avatar": "http://localhost:8080/upload/files/example.png"
 }
 ```
 

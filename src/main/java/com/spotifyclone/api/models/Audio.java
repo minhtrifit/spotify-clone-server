@@ -31,21 +31,26 @@ public class Audio {
     @Column(name = "url")
     private String url;
 
+    @Column(name = "avatar")
+    private String avatar;
+
     public Audio() {}
 
-    public Audio(Long id, String name, List<Long> artists, List<Long> albums, String url) {
+    public Audio(Long id, String name, List<Long> artists, List<Long> albums, String url, String avatar) {
         this.id = id;
         this.name = name;
         this.artists = artists;
         this.albums = albums;
         this.url = url;
+        this.avatar = avatar;
     }
 
-    public Audio(String name, List<Long> artists, List<Long> albums, String url) {
+    public Audio(String name, List<Long> artists, List<Long> albums, String url, String avatar) {
         this.name = name;
         this.artists = artists;
         this.albums = albums;
         this.url = url;
+        this.avatar= avatar;
     }
 
     public long getId() {
@@ -66,6 +71,10 @@ public class Audio {
 
     public String getUrl() {
         return this.url;
+    }
+
+     public String getAvatar() {
+        return this.avatar;
     }
 
     public void setName(String name) {
@@ -94,5 +103,9 @@ public class Audio {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 }

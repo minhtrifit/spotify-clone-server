@@ -15,9 +15,9 @@ public class ArtistDb {
             @Override
             public void run(String... args) throws Exception {
                 
-                // artistRepository.save(new Artist(1, "Miina", 3213, "http://localhost:8080/upload/files/1.png"));
-                // artistRepository.save(new Artist(2, "Umie", 4691, "http://localhost:8080/upload/files/2.png"));
-                // artistRepository.save(new Artist(3, "Taylor Swift", 210497, "http://localhost:8080/upload/files/3.png"));
+                artistRepository.save(new Artist(1, "Miina", 3213, "http://localhost:8080/upload/files/1.png"));
+                artistRepository.save(new Artist(2, "Umie", 4691, "http://localhost:8080/upload/files/2.png"));
+                artistRepository.save(new Artist(3, "Taylor Swift", 210497, "http://localhost:8080/upload/files/3.png"));
 
             }
         };

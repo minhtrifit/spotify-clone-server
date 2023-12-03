@@ -8,13 +8,15 @@ public class AlbumResponse {
     private String name;
     private List<AudioLite> audios;
     private String createdAt;
+    private String avatar;
 
     public AlbumResponse() {}
 
-    public AlbumResponse(long id, String name, List<AudioLite> audios) {
+    public AlbumResponse(long id, String name, List<AudioLite> audios, String avatar) {
         this.id = id;
         this.name = name;
         this.audios = audios;
+        this.avatar = avatar;
     }
 
     public long getId() {
@@ -31,6 +33,10 @@ public class AlbumResponse {
 
     public String getCreatedAt() {
         return this.createdAt;
+    }
+
+    public String getAvatar() {
+        return this.avatar;
     }
 
     public void setId(Long id) {
@@ -53,5 +59,9 @@ public class AlbumResponse {
 
     public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
+    }
+
+     public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 }

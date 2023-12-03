@@ -59,6 +59,7 @@ public class MusicService {
                 newAudio.setId(audio.getId());
                 newAudio.setName(audio.getName());
                 newAudio.setUrl(audio.getUrl());
+                newAudio.setAvatar(audio.getAvatar());
 
                 // Get artists name
                 for (Long artist : audio.getArtists()) {
@@ -117,6 +118,7 @@ public class MusicService {
 
                 newAlbum.setId(album.getId());
                 newAlbum.setName(album.getName());
+                newAlbum.setAvatar(album.getAvatar());
 
                 // Get artists name
                 for (Long audio : album.getAudios()) {
@@ -152,12 +154,13 @@ public class MusicService {
             List<Long> albums = new ArrayList<>();
             albums = newAudio.getAlbums();
             String url = newAudio.getUrl();
+            String avatar = newAudio.getAvatar();
 
             Boolean checkExistArtist = true;
             Boolean checkExistAlbum = true;
 
             // Check bad request
-            if(name == null || artists == null || albums == null || url == null) {
+            if(name == null || artists == null || albums == null || url == null || avatar == null) {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
                     new ResponseObject("401", "Bad new audio request", newAudio)
                     );
@@ -257,7 +260,7 @@ public class MusicService {
 
     public ResponseEntity<ResponseObject> addNewAlbum(Album newAlbum) {
         try {
-            if(newAlbum.getName() == null || newAlbum.getAudios() == null) {
+            if(newAlbum.getName() == null || newAlbum.getAudios() == null || newAlbum.getAvatar() == null) {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
                     new ResponseObject("401", "Bad new album request", newAlbum)
                     );
@@ -280,7 +283,7 @@ public class MusicService {
 
      public ResponseEntity<ResponseObject> editAlbum(Album editAlbum) {
         try {
-            if(editAlbum.getName() == null || editAlbum.getAudios() == null) {
+            if(editAlbum.getName() == null || editAlbum.getAudios() == null || editAlbum.getAvatar() == null) {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
                     new ResponseObject("401", "Bad edit album request", editAlbum)
                     );
@@ -300,6 +303,7 @@ public class MusicService {
                 if(album.getId() == editAlbum.getId()) {
                     album.setName(editAlbum.getName());
                     album.setAudios(editAlbum.getAudios());
+                    album.setAvatar(editAlbum.getAvatar());
                     albumRepository.save(album);
                 }
             }
