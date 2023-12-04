@@ -1,10 +1,16 @@
 > # SPOTIFY CLONE SERVER DOCUMENTATION
 
+<br>
+
+---
+
 > ## 1. Technical Stack
 
 <a href="https://spring.io/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/springio/springio-icon.svg" alt="spring" width="40" height="40"/> </a> <a href="https://expressjs.com" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/express/express-original-wordmark.svg" alt="express" width="40" height="40"/> </a> <a href="https://www.mysql.com/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/mysql/mysql-original-wordmark.svg" alt="mysql" width="40" height="40"/> </a> <a href="https://www.docker.com/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/docker/docker-original-wordmark.svg" alt="docker" width="40" height="40"/> </a>
 
 <br>
+
+---
 
 > ## 2. Install MySQL & PhpMyAdmin (using Docker)
 
@@ -29,7 +35,6 @@ username: root
 password: password
 ```
 <br>
-
 
 ---
 
@@ -101,6 +106,8 @@ npm run start
 ---
 
 > ## 4. API Documentation
+
+* **Authentication & Authorization** 
 
 <details>
 <summary><code>Register</code> <code><b>/</b></code> <code>[POST]: http://localhost:8080/auth/register</code></summary>
@@ -180,127 +187,236 @@ npm run start
 
 ---
 
-### Upload new image: `[POST]: http://localhost:8080/upload`
+* **Image Handle** 
 
-**form-data: file choosefile**
-
-### Get image url: `[GET]: http://localhost:8080/upload/files/1.png`
-
----
-
-### Get all audio: `[GET]: http://localhost:8080/api/v1/audios`
-
-### Add new audio: `[POST]: http://localhost:8080/api/v1/add/audio`
-
-**Header: Bearer generateToken**
+<details>
+<summary><code>Upload new image</code> <code><b>/</b></code> <code>[POST]: http://localhost:8080/upload</code></summary>
 
 ```php
 {
+  form-data: {
+    "file": choosefile,
+  },
+}
+```
+</details>
+
+<details>
+<summary><code>Get image url</code> <code><b>/</b></code> <code>[GET]: http://localhost:8080/upload/files/1.png</code></summary>
+
+```php
+{
+
+}
+```
+</details>
+
+---
+
+* **Audio Handle** 
+
+<details>
+<summary><code> Get all audio</code> <code><b>/</b></code> <code>[GET]: http://localhost:8080/api/v1/audios</code></summary>
+
+```php
+{
+
+}
+```
+</details>
+
+<details>
+<summary><code>Add new audio</code> <code><b>/</b></code> <code>[POST]: http://localhost:8080/api/v1/add/audio</code></summary>
+
+```php
+{
+  headers: {
+    "Authorization": `Bearer token`,
+  },
+  body: {
     "name": "Bài ca dành cho em",
     "artist": [2],
     "albums": [1],
     "url": "http://example.com",
-    "avatar": "http://localhost:8080/upload/files/example.png",
+    "avatar": "http://localhost:8080/upload/files/example.png"
+  }
 }
 ```
+</details>
 
-### Delete audio by id: `[POST]: http://localhost:8080/api/v1/delete/audio/id`
+<details>
+<summary><code> Delete audio by id</code> <code><b>/</b></code> <code>[POST]: http://localhost:8080/api/v1/delete/audio/id</code></summary>
 
-**Header: Bearer generateToken**
+```php
+{
+  headers: {
+    "Authorization": `Bearer token`,
+  }
+}
+```
+</details>
 
 ---
 
-### Get all artists: `[GET]: http://localhost:8080/api/v1/artists`
+* **Artist Handle**
 
-### Add new artist: `[POST]: http://localhost:8080/api/v1/add/artist`
-
-**Header: Bearer generateToken**
-
-```php
-{
-  "name": "Yến Napun",
-  "avatar": "http://localhost:8080/upload/files/example.png"
-}
-```
-
-### Edit artist: `[POST]: http://localhost:8080/api/v1/edit/artist`
-
-**Header: Bearer generateToken**
+<details>
+<summary><code>Get all artists</code> <code><b>/</b></code> <code>[GET]: http://localhost:8080/api/v1/artists</code></summary>
 
 ```php
 {
-  "id": 102,
-  "name": "Yến Napun Cover",
-  "followers": 100,
-  "avatar": "http://localhost:8080/upload/files/edit.png"
+
 }
 ```
+</details>
 
-### Delete artist by id: `[POST]: http://localhost:8080/api/v1/delete/artist/id`
+<details>
+<summary><code>Add new artist</code> <code><b>/</b></code> <code>[POST]: http://localhost:8080/api/v1/add/artist</code></summary>
 
-**Header: Bearer generateToken**
+```php
+{
+  headers: {
+    "Authorization": `Bearer token`,
+  },
+  body: {
+    "name": "Yến Napun",
+    "avatar": "http://localhost:8080/upload/files/example.png"
+  }
+}
+```
+</details>
+
+<details>
+<summary><code>Edit artist</code> <code><b>/</b></code> <code>[POST]: http://localhost:8080/api/v1/edit/artist</code></summary>
+
+```php
+{
+  headers: {
+    "Authorization": `Bearer token`,
+  },
+  body: {
+    "id": 102,
+    "name": "Yến Napun Cover",
+    "followers": 100,
+    "avatar": "http://localhost:8080/upload/files/edit.png"
+  }
+}
+```
+</details>
+
+<details>
+<summary><code>Delete artist by id</code> <code><b>/</b></code> <code>[POST]: http://localhost:8080/api/v1/delete/artist/id</code></summary>
+
+```php
+{
+  headers: {
+    "Authorization": `Bearer token`,
+  }
+}
+```
+</details>
 
 ---
 
-### Get all albums: `[GET]: http://localhost:8080/api/v1/albums`
+* **Album Handle**
 
-### Add new album: `[POST]: http://localhost:8080/api/v1/add/album`
-
-**Header: Bearer generateToken**
+<details>
+<summary><code>Get all albums</code> <code><b>/</b></code> <code>[GET]: http://localhost:8080/api/v1/albums</code></summary>
 
 ```php
 {
+
+}
+```
+</details>
+
+<details>
+<summary><code>Add new album</code> <code><b>/</b></code> <code>[POST]: http://localhost:8080/api/v1/add/album</code></summary>
+
+```php
+{
+  headers: {
+    "Authorization": `Bearer token`,
+  },
+  body: {
     "name": "Lofi chill",
     "audios": [1, 2],
     "avatar": "http://localhost:8080/upload/files/example.png"
+  }
 }
 ```
+</details>
 
-### Edit album: `[POST]: http://localhost:8080/api/v1/edit/album`
-
-**Header: Bearer generateToken**
+<details>
+<summary><code>Edit album</code> <code><b>/</b></code> <code>[POST]: http://localhost:8080/api/v1/edit/album</code></summary>
 
 ```php
 {
+  headers: {
+    "Authorization": `Bearer token`,
+  },
+  body: {
     "id": 3,
     "name": "Lofi chill",
     "audios": [1, 2, 3],
     "avatar": "http://localhost:8080/upload/files/example.png"
+  }
 }
 ```
+</details>
 
-### Delete album by id: `[POST]: http://localhost:8080/api/v1/delete/album/id`
-
-**Header: Bearer generateToken**
-
----
-
-### Add new playlist: `[POST]: http://localhost:8080/api/v1/add/playlist`
-
-**Header: Bearer generateToken**
+<details>
+<summary><code>Delete album by id</code> <code><b>/</b></code> <code>[POST]: http://localhost:8080/api/v1/delete/album/id</code></summary>
 
 ```php
 {
+  headers: {
+    "Authorization": `Bearer token`,
+  }
+}
+```
+</details>
+
+---
+
+* **Playlist Handle**
+
+<details>
+<summary><code>Add new playlist</code> <code><b>/</b></code> <code>http://localhost:8080/api/v1/add/playlist</code></summary>
+
+```php
+{
+  headers: {
+    "Authorization": `Bearer token`,
+  },
+  body: {
     "userId": 1,
     "name": "Nhạc của sadboiz",
     "audios": [1, 2],
     "avatar": "http://localhost:8080/upload/files/example.png"
+  }
 }
 ```
+</details>
 
-### Edit playlist: `[POST]: http://localhost:8080/api/v1/edit/playlist`
-
-**Header: Bearer generateToken**
+<details>
+<summary><code>Edit playlist</code> <code><b>/</b></code> <code>http://localhost:8080/api/v1/edit/playlist</code></summary>
 
 ```php
 {
+  headers: {
+    "Authorization": `Bearer token`,
+  },
+  body: {
     "id": 1,
     "userId": 1,
     "name": "Nhạc của sadboiz",
     "audios": [1, 2, 3],
     "avatar": "http://localhost:8080/upload/files/example.png"
+  }
 }
 ```
+</details>
 
 <br>
 
