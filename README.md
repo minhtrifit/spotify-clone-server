@@ -8,21 +8,34 @@
 
 * If you have installed MySql (Xampp or anything else), you can skip this step.
 
-## Run docker-compose: `docker-compose -f .\docker-compose.yml up`
+## Run docker-compose:
+
+* To run MySQL & PhpMyAdmin to interact with database:
+
+```php
+docker-compose -f .\docker-compose.yml up
+```
 
 ## PhpMyAdmin: `http://localhost:8090`
+
+* Using default account to login to PhpMyAdmin:
 
 ```php
 username: root
 password: password
 ```
 
+---
+
 # 2. Server config setting
 
 * Note: This repository use **TWO** server.
 
-**1. Main server with Spring Boot.**
+**1. Main server with Spring Boot.**</br>
+
 **2. NodeJS(ExpressJS) server to upload audio file.**
+
+### 2a. Spring Boot Server config
 
 ## application.properties: `src/main/resources/application.properties`
 
@@ -48,10 +61,13 @@ spring.jpa.properties.hibernate.diatect=org.hibernate.dialect.MySQL8InnoDBDialec
 spring.jpa.properties.hibernate.use_nationalized_character_data =true
 ```
 
+### 2b. ExpressJS Server config
+
 ## .env config: `upload-server/.env`
 
-**Config ExpressJS server, this server using [Google Drive API](https://www.npmjs.com/package/@googleapis/drive) two upload Audio file.**
-**How to get Google Drive API key, you can check out: [Youtube tutorial](https://www.youtube.com/watch?v=1y0-IfRW114)**
+**Config .env file for ExpressJS server, this server using [Google Drive API](https://www.npmjs.com/package/@googleapis/drive) two upload Audio file.**</br>
+
+**To get Google Drive API key, you can check out: [Youtube tutorial](https://www.youtube.com/watch?v=1y0-IfRW114)**
 
 ```bash
 PORT=5500
@@ -69,6 +85,8 @@ FOLDER_ID=value
 npm install
 npm run start
 ```
+
+---
 
 # 3. API Documentation
 
