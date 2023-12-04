@@ -1,14 +1,18 @@
 > # SPOTIFY CLONE SERVER DOCUMENTATION
 
-# Technical Stack
+> ## 1. Technical Stack
 
-<a href="https://spring.io/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/springio/springio-icon.svg" alt="spring" width="40" height="40"/> </a> <a href="https://expressjs.com" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/express/express-original-wordmark.svg" alt="express" width="40" height="40"/> </a> <a href="https://www.mysql.com/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/mysql/mysql-original-wordmark.svg" alt="mysql" width="40" height="40"/> </a> <a href="https://www.docker.com/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/docker/docker-original-wordmark.svg" alt="docker" width="40" height="40"/> </a> 
+<a href="https://spring.io/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/springio/springio-icon.svg" alt="spring" width="40" height="40"/> </a> <a href="https://expressjs.com" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/express/express-original-wordmark.svg" alt="express" width="40" height="40"/> </a> <a href="https://www.mysql.com/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/mysql/mysql-original-wordmark.svg" alt="mysql" width="40" height="40"/> </a> <a href="https://www.docker.com/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/docker/docker-original-wordmark.svg" alt="docker" width="40" height="40"/> </a>
 
-# 1. Install mysql (using Docker)
+<br>
 
-* If you have installed MySql (Xampp or anything else), you can skip this step.
+> ## 2. Install MySQL & PhpMyAdmin (using Docker)
 
-## Run docker-compose:
+**NOTE: If you have installed MySQL (Xampp or anything else), you can skip this step.**
+
+<br>
+
+### Run docker-compose:
 
 * To run MySQL & PhpMyAdmin to interact with database:
 
@@ -16,7 +20,7 @@
 docker-compose -f .\docker-compose.yml up
 ```
 
-## PhpMyAdmin: `http://localhost:8090`
+### PhpMyAdmin browser: `http://localhost:8090`
 
 * Using default account to login to PhpMyAdmin:
 
@@ -24,10 +28,12 @@ docker-compose -f .\docker-compose.yml up
 username: root
 password: password
 ```
+<br>
+
 
 ---
 
-# 2. Server config setting
+> ## 3. Server config setting
 
 * Note: This repository use **TWO** server.
 
@@ -35,9 +41,11 @@ password: password
 
 **2. NodeJS(ExpressJS) server to upload audio file.**
 
-### 2a. Spring Boot Server config
+<br>
 
-## application.properties: `src/main/resources/application.properties`
+#### 3a. Spring Boot Server config
+
+### application.properties: `src/main/resources/application.properties`
 
 * This config file to map your Mysql database with Spring Boot project
 * Change: "url, username, password" value for example `spotify_clone, root, password`
@@ -61,9 +69,11 @@ spring.jpa.properties.hibernate.diatect=org.hibernate.dialect.MySQL8InnoDBDialec
 spring.jpa.properties.hibernate.use_nationalized_character_data =true
 ```
 
-### 2b. ExpressJS Server config
+<br>
 
-## .env config: `upload-server/.env`
+#### 3b. ExpressJS Server config
+
+### .env config: `upload-server/.env`
 
 **Config .env file for ExpressJS server, this server using [Google Drive API](https://www.npmjs.com/package/@googleapis/drive) two upload Audio file.**</br>
 
@@ -79,90 +89,108 @@ REFRESH_TOKEN=value
 FOLDER_ID=value
 ```
 
-## Run audio upload server: `upload-server/`
+### Run audio upload server: `upload-server/`
 
 ```bash
 npm install
 npm run start
 ```
 
----
-
-# 3. API Documentation
-
-## Register: `[POST]: http://localhost:8080/auth/register`
-
-```php
-{
-  "username": "user1",
-  "password": "123",
-  "email": "user@gmail.com",
-  "roles": "ROLE_USER"
-}
-```
-
-## Login: `[POST]: http://localhost:8080/auth/login`
-
-```php
-{
-  "username": "user1",
-  "password": "123"
-}
-```
-
-## Refresh: `[POST]: http://localhost:8080/auth/refresh`
-
-**Header: Bearer generateToken**
-
-```php
-{
-  "Authorization": Bearer accessToken
-}
-```
-
-## Get user profile: `[GET]: http://localhost:8080/auth/profile`
-
-**Header: Bearer generateToken**
-
-```php
-{
-  "Authorization": Bearer token
-}
-```
-
-## Check user role: `[GET]: http://localhost:8080/auth/user`
-
-**Header: Bearer generateToken**
-
-```php
-{
-  "Authorization": Bearer token
-}
-```
-
-## Check admin role: `[GET]: http://localhost:8080/auth/admin`
-
-**Header: Bearer generateToken**
-
-```php
-{
-  "Authorization": Bearer token
-}
-```
+<br>
 
 ---
 
-## Upload new image: `[POST]: http://localhost:8080/upload`
+> ## 4. API Documentation
+
+<details>
+<summary><code>Register</code> <code><b>/</b></code> <code>[POST]: http://localhost:8080/auth/register</code></summary>
+
+```php
+{
+  body: {
+    "username": "user1",
+    "password": "123",
+    "email": "user@gmail.com",
+    "roles": "ROLE_USER"
+  }
+}
+```
+</details>
+
+<details>
+<summary><code>Login</code> <code><b>/</b></code> <code>[POST]: http://localhost:8080/auth/login</code></summary>
+
+```php
+{
+  body: {
+    "username": "user1",
+    "password": "123"
+  }
+}
+```
+</details>
+
+<details>
+<summary><code>Refresh</code> <code><b>/</b></code> <code>[POST]: http://localhost:8080/auth/refresh</code></summary>
+
+```php
+{
+  headers: {
+    "Authorization": `Bearer accessToken`,
+  },
+}
+```
+</details>
+
+<details>
+<summary><code>Get user profile</code> <code><b>/</b></code> <code>[GET]: http://localhost:8080/auth/profile</code></summary>
+
+```php
+{
+  headers: {
+    "Authorization": `Bearer token`,
+  },
+}
+```
+</details>
+
+<details>
+<summary><code>Check user role</code> <code><b>/</b></code> <code>[GET]: http://localhost:8080/auth/user</code></summary>
+
+```php
+{
+  headers: {
+    "Authorization": `Bearer token`,
+  },
+}
+```
+</details>
+
+<details>
+<summary><code>Check admin role</code> <code><b>/</b></code> <code>[GET]: http://localhost:8080/auth/admin</code></summary>
+
+```php
+{
+  headers: {
+    "Authorization": `Bearer token`,
+  },
+}
+```
+</details>
+
+---
+
+### Upload new image: `[POST]: http://localhost:8080/upload`
 
 **form-data: file choosefile**
 
-## Get image url: `[GET]: http://localhost:8080/upload/files/1.png`
+### Get image url: `[GET]: http://localhost:8080/upload/files/1.png`
 
 ---
 
-## Get all audio: `[GET]: http://localhost:8080/api/v1/audios`
+### Get all audio: `[GET]: http://localhost:8080/api/v1/audios`
 
-## Add new audio: `[POST]: http://localhost:8080/api/v1/add/audio`
+### Add new audio: `[POST]: http://localhost:8080/api/v1/add/audio`
 
 **Header: Bearer generateToken**
 
@@ -176,15 +204,15 @@ npm run start
 }
 ```
 
-## Delete audio by id: `[POST]: http://localhost:8080/api/v1/delete/audio/id`
+### Delete audio by id: `[POST]: http://localhost:8080/api/v1/delete/audio/id`
 
 **Header: Bearer generateToken**
 
 ---
 
-## Get all artists: `[GET]: http://localhost:8080/api/v1/artists`
+### Get all artists: `[GET]: http://localhost:8080/api/v1/artists`
 
-## Add new artist: `[POST]: http://localhost:8080/api/v1/add/artist`
+### Add new artist: `[POST]: http://localhost:8080/api/v1/add/artist`
 
 **Header: Bearer generateToken**
 
@@ -195,7 +223,7 @@ npm run start
 }
 ```
 
-## Edit artist: `[POST]: http://localhost:8080/api/v1/edit/artist`
+### Edit artist: `[POST]: http://localhost:8080/api/v1/edit/artist`
 
 **Header: Bearer generateToken**
 
@@ -208,15 +236,15 @@ npm run start
 }
 ```
 
-## Delete artist by id: `[POST]: http://localhost:8080/api/v1/delete/artist/id`
+### Delete artist by id: `[POST]: http://localhost:8080/api/v1/delete/artist/id`
 
 **Header: Bearer generateToken**
 
 ---
 
-## Get all albums: `[GET]: http://localhost:8080/api/v1/albums`
+### Get all albums: `[GET]: http://localhost:8080/api/v1/albums`
 
-## Add new album: `[POST]: http://localhost:8080/api/v1/add/album`
+### Add new album: `[POST]: http://localhost:8080/api/v1/add/album`
 
 **Header: Bearer generateToken**
 
@@ -228,7 +256,7 @@ npm run start
 }
 ```
 
-## Edit album: `[POST]: http://localhost:8080/api/v1/edit/album`
+### Edit album: `[POST]: http://localhost:8080/api/v1/edit/album`
 
 **Header: Bearer generateToken**
 
@@ -241,13 +269,13 @@ npm run start
 }
 ```
 
-## Delete album by id: `[POST]: http://localhost:8080/api/v1/delete/album/id`
+### Delete album by id: `[POST]: http://localhost:8080/api/v1/delete/album/id`
 
 **Header: Bearer generateToken**
 
 ---
 
-## Add new playlist: `[POST]: http://localhost:8080/api/v1/add/playlist`
+### Add new playlist: `[POST]: http://localhost:8080/api/v1/add/playlist`
 
 **Header: Bearer generateToken**
 
@@ -260,7 +288,7 @@ npm run start
 }
 ```
 
-## Edit playlist: `[POST]: http://localhost:8080/api/v1/edit/playlist`
+### Edit playlist: `[POST]: http://localhost:8080/api/v1/edit/playlist`
 
 **Header: Bearer generateToken**
 
@@ -274,8 +302,10 @@ npm run start
 }
 ```
 
+<br>
+
 ---
 
-## 4. More Documentation
+> ### 5. More Documentation
 
 **https://copyprogramming.com/howto/utf-8-character-encoding-is-not-working-for-spring-boot**
