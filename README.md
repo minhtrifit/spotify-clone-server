@@ -184,6 +184,34 @@ npm run start
 
 ## Get all artists: `[GET]: http://localhost:8080/api/v1/artists`
 
+## Add new artist: `[POST]: http://localhost:8080/api/v1/add/artist`
+
+**Header: Bearer generateToken**
+
+```php
+{
+  "name": "Yến Napun",
+  "avatar": "http://localhost:8080/upload/files/example.png"
+}
+```
+
+## Edit artist: `[POST]: http://localhost:8080/api/v1/edit/artist`
+
+**Header: Bearer generateToken**
+
+```php
+{
+  "id": 102,
+  "name": "Yến Napun Cover",
+  "followers": 100,
+  "avatar": "http://localhost:8080/upload/files/edit.png"
+}
+```
+
+## Delete artist by id: `[POST]: http://localhost:8080/api/v1/delete/artist/id`
+
+**Header: Bearer generateToken**
+
 ---
 
 ## Get all albums: `[GET]: http://localhost:8080/api/v1/albums`
@@ -245,6 +273,8 @@ npm run start
     "avatar": "http://localhost:8080/upload/files/example.png"
 }
 ```
+
+---
 
 ## 4. More Documentation
 

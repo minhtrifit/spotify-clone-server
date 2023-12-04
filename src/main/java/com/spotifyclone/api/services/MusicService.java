@@ -154,6 +154,91 @@ public class MusicService {
         }     
     }
 
+    public ResponseEntity<ResponseObject> addNewArtist(Artist artist) {
+        try {
+             if(artist.getName() == null || artist.getAvatar() == null) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                    new ResponseObject("401", "Bad new artist request", artist)
+                    );
+            }
+
+            // Set init follower
+            artist.setFollowers(1);
+
+            // Save new artist
+            artistRepository.save(artist);
+
+            return ResponseEntity.status(HttpStatus.CREATED).body(
+                new ResponseObject("201", "Add new artist successfully", artist)
+                );
+
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                new ResponseObject("400", "Something wrong", e.getMessage())
+                );
+        }  
+    }
+    
+    public ResponseEntity<ResponseObject> editArtist(Artist editArtist) {
+        try {
+            if(editArtist.getName() == null || editArtist.getFollowers() == 0 || editArtist.getAvatar() == null) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                    new ResponseObject("401", "Bad edit artist request", editArtist)
+                    );
+            }
+
+            List<Artist> artistSrc = artistRepository.findAll();
+            Optional<Artist> targetArtist = artistRepository.findById(editArtist.getId());
+
+            if(!targetArtist.isPresent()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                    new ResponseObject("404", "Artist not found", editArtist)
+                    );
+            }
+
+            // Update artist
+            for (Artist artist : artistSrc) {
+                if(artist.getId() == editArtist.getId()) {
+                    artist.setName(editArtist.getName());
+                    artist.setFollowers(editArtist.getFollowers());
+                    artist.setAvatar(editArtist.getAvatar());
+
+                    artistRepository.save(artist);
+                }
+            }
+
+            return ResponseEntity.status(HttpStatus.OK).body(
+                new ResponseObject("201", "Edit artist successfully", editArtist)
+                );
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                new ResponseObject("400", "Something wrong", e.getMessage())
+                );
+        }
+    }
+
+    public ResponseEntity<ResponseObject> deleteArtistById(long id) {
+        try {
+            Optional<Artist> targetArtist = artistRepository.findById(id);
+
+            if(!targetArtist.isPresent()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                    new ResponseObject("404", "Album not found", id)
+                    );
+            }
+
+            artistRepository.deleteById(id);
+
+            return ResponseEntity.status(HttpStatus.OK).body(
+                new ResponseObject("201", "Delete artist successfully", id)
+                );
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                new ResponseObject("400", "Something wrong", e.getMessage())
+                );
+        }
+    }
+
     public ResponseEntity<ResponseObject> loadAllAlbums() {
         try {
             List<Album> albumSrc = albumRepository.findAll();
