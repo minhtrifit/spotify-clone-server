@@ -1,6 +1,6 @@
 > # SPOTIFY CLONE SERVER DOCUMENTATION
 
-<br>
+**Copyright©: minhtrifit**
 
 ---
 
@@ -143,8 +143,8 @@ npm run start
 ```php
 {
   headers: {
-    "Authorization": `Bearer accessToken`,
-  },
+    "Authorization": `Bearer accessToken`
+  }
 }
 ```
 </details>
@@ -155,8 +155,8 @@ npm run start
 ```php
 {
   headers: {
-    "Authorization": `Bearer token`,
-  },
+    "Authorization": `Bearer token`
+  }
 }
 ```
 </details>
@@ -167,7 +167,7 @@ npm run start
 ```php
 {
   headers: {
-    "Authorization": `Bearer token`,
+    "Authorization": `Bearer token`
   },
 }
 ```
@@ -179,13 +179,13 @@ npm run start
 ```php
 {
   headers: {
-    "Authorization": `Bearer token`,
+    "Authorization": `Bearer token`
   },
 }
 ```
 </details>
 
----
+<br>
 
 * **Image Handle** 
 
@@ -195,8 +195,8 @@ npm run start
 ```php
 {
   form-data: {
-    "file": choosefile,
-  },
+    "file": choosefile
+  }
 }
 ```
 </details>
@@ -211,7 +211,7 @@ npm run start
 ```
 </details>
 
----
+<br>
 
 * **Audio Handle** 
 
@@ -231,7 +231,7 @@ npm run start
 ```php
 {
   headers: {
-    "Authorization": `Bearer token`,
+    "Authorization": `Bearer token`
   },
   body: {
     "name": "Bài ca dành cho em",
@@ -250,13 +250,13 @@ npm run start
 ```php
 {
   headers: {
-    "Authorization": `Bearer token`,
+    "Authorization": `Bearer token`
   }
 }
 ```
 </details>
 
----
+<br>
 
 * **Artist Handle**
 
@@ -276,7 +276,7 @@ npm run start
 ```php
 {
   headers: {
-    "Authorization": `Bearer token`,
+    "Authorization": `Bearer token`
   },
   body: {
     "name": "Yến Napun",
@@ -292,7 +292,7 @@ npm run start
 ```php
 {
   headers: {
-    "Authorization": `Bearer token`,
+    "Authorization": `Bearer token`
   },
   body: {
     "id": 102,
@@ -310,13 +310,13 @@ npm run start
 ```php
 {
   headers: {
-    "Authorization": `Bearer token`,
+    "Authorization": `Bearer token`
   }
 }
 ```
 </details>
 
----
+<br>
 
 * **Album Handle**
 
@@ -336,7 +336,7 @@ npm run start
 ```php
 {
   headers: {
-    "Authorization": `Bearer token`,
+    "Authorization": `Bearer token`
   },
   body: {
     "name": "Lofi chill",
@@ -353,7 +353,7 @@ npm run start
 ```php
 {
   headers: {
-    "Authorization": `Bearer token`,
+    "Authorization": `Bearer token`
   },
   body: {
     "id": 3,
@@ -371,13 +371,13 @@ npm run start
 ```php
 {
   headers: {
-    "Authorization": `Bearer token`,
+    "Authorization": `Bearer token`
   }
 }
 ```
 </details>
 
----
+<br>
 
 * **Playlist Handle**
 
@@ -387,7 +387,7 @@ npm run start
 ```php
 {
   headers: {
-    "Authorization": `Bearer token`,
+    "Authorization": `Bearer token`
   },
   body: {
     "userId": 1,
@@ -405,7 +405,7 @@ npm run start
 ```php
 {
   headers: {
-    "Authorization": `Bearer token`,
+    "Authorization": `Bearer token`
   },
   body: {
     "id": 1,
