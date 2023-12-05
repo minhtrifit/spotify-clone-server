@@ -61,6 +61,12 @@ public class UserController {
         } 
     }
 
+    @PostMapping("/verify")
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')") 
+    public ResponseEntity<ResponseObject> verifyToken(HttpServletRequest request) { 
+        return userService.getUserProfile(request);
+    }
+
     @PostMapping("/refresh")
     @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')") 
     public ResponseEntity<ResponseObject> refreshAccessToken(HttpServletRequest request) { 
