@@ -233,7 +233,7 @@ npm run start
 </details>
 
 <details>
-<summary><code> Get all audio</code> <code><b>/</b></code> <code>[GET]: http://localhost:8080/api/v1/audios</code></summary>
+<summary><code>Get all audio</code> <code><b>/</b></code> <code>[GET]: http://localhost:8080/api/v1/audios</code></summary>
 
 ```php
 {
