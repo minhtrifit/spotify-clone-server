@@ -39,19 +39,19 @@ public class MusicController {
     }
 
     @PostMapping("/add/artist")
-    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')") 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')") 
     public ResponseEntity<ResponseObject> addNewArtist(@RequestBody Artist newArtist) {
         return musicService.addNewArtist(newArtist);
     }
 
     @PostMapping("/edit/artist")
-    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')") 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')") 
     public ResponseEntity<ResponseObject> editArtist(@RequestBody Artist editArtist) {
         return musicService.editArtist(editArtist);
     }
 
     @PostMapping("/delete/artist/{id}")
-    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')") 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')") 
     public ResponseEntity<ResponseObject> deleteArtistById(@PathVariable long id) {
         return musicService.deleteArtistById(id);
     }
@@ -67,7 +67,7 @@ public class MusicController {
     }
 
     @PostMapping("/add/audio")
-    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')") 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')") 
     public ResponseEntity<ResponseObject> addNewAudio(@RequestBody Audio newAudio) {
         return musicService.addNewAudio(newAudio);
     }
@@ -79,19 +79,19 @@ public class MusicController {
     }
 
     @PostMapping("/add/album")
-    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')") 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')") 
     public ResponseEntity<ResponseObject> addNewAlbum(@RequestBody Album newAlbum) {
         return musicService.addNewAlbum(newAlbum);
     }
 
     @PostMapping("/edit/album")
-    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')") 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')") 
     public ResponseEntity<ResponseObject> editAlbum(@RequestBody Album editAlbum) {
         return musicService.editAlbum(editAlbum);
     }
 
     @PostMapping("/delete/album/{id}")
-    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')") 
     public ResponseEntity<ResponseObject> deleteAlbum(@PathVariable long id) {
         return musicService.deleteAlbumById(id);
     }
