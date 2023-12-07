@@ -262,7 +262,7 @@ npm run start
 </details>
 
 <details>
-<summary><code> Delete audio by id</code> <code><b>/</b></code> <code>[POST]: http://localhost:8080/api/v1/delete/audio/id</code></summary>
+<summary><code>Delete audio by id</code> <code><b>/</b></code> <code>[POST]: http://localhost:8080/api/v1/delete/audio/id</code></summary>
 
 ```php
 {
