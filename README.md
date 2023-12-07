@@ -80,7 +80,7 @@ spring.jpa.properties.hibernate.use_nationalized_character_data =true
 
 ### .env config: `upload-server/.env`
 
-**Config .env file for ExpressJS server, this server using [Google Drive API](https://www.npmjs.com/package/@googleapis/drive) two upload Audio file.**</br>
+**Config .env file for ExpressJS server, this server using [Google Drive API](https://www.npmjs.com/package/@googleapis/drive) to upload Audio file.**</br>
 
 **To get Google Drive API key, you can check out: [Youtube tutorial](https://www.youtube.com/watch?v=1y0-IfRW114)**
 
