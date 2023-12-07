@@ -84,12 +84,17 @@ spring.jpa.properties.hibernate.use_nationalized_character_data =true
 
 **To get Google Drive API key, you can check out: [Youtube tutorial](https://www.youtube.com/watch?v=1y0-IfRW114)**
 
+**To get FOLDER_ID:**
+
+* Navigate to the folder in Google Drive.
+* Copy the Folder ID found in the URL. This is everything that comes after “folder/” in the URL. For example, if the URL was “https://drive.google.com/drive/folders/1dyUEebJaFnWa3Z4n0BFMVAXQ7mfUH11g”, then the Folder ID would be “1dyUEebJaFnWa3Z4n0BFMVAXQ7mfUH11g”.
+
 ```bash
 PORT=5500
 CLIENT_URL=localhost:5173
 CLIENT_ID=value
 CLIENT_SECRET=value
-REDIRECT_URI=value
+REDIRECT_URI=https://developers.google.com/oauthplayground
 REFRESH_TOKEN=value
 FOLDER_ID=value
 ```
@@ -213,7 +218,19 @@ npm run start
 
 <br>
 
-* **Audio Handle** 
+* **Audio Handle**
+
+<details>
+<summary><code>Upload new audio</code> <code><b>/</b></code> <code>[POST]: http://localhost:5500/upload</code></summary>
+
+```php
+{
+  form-data: {
+    "file": choosefile
+  }
+}
+```
+</details>
 
 <details>
 <summary><code> Get all audio</code> <code><b>/</b></code> <code>[GET]: http://localhost:8080/api/v1/audios</code></summary>
