@@ -144,7 +144,7 @@ public class MusicService {
     public ResponseEntity<ResponseObject> loadAllArtists() {
         try {
             return ResponseEntity.status(HttpStatus.OK).body(
-            new ResponseObject("200", "Get audio list successfully", artistRepository.findAll())
+            new ResponseObject("200", "Get artist list successfully", artistRepository.findAll())
             );
 
         } catch (Exception e) {

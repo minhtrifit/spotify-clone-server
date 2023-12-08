@@ -252,7 +252,7 @@ npm run start
   },
   body: {
     "name": "Bài ca dành cho em",
-    "artist": [2],
+    "artists": [2],
     "albums": [1],
     "url": "http://example.com",
     "avatar": "http://localhost:8080/upload/files/example.png"
