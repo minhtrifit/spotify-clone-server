@@ -34,3 +34,4 @@ build/
 
 /upload-server/.env
 /upload-server/node_modules
+db_data
