@@ -97,7 +97,15 @@ public class UploadImageService {
     public boolean deleteFileById(String fileName) {
         try {
             Path file = storageFolder.resolve(fileName);
-            return Files.deleteIfExists(file);
+            Resource resource = new UrlResource(file.toUri());
+            
+            if (!resource.exists() || !resource.isReadable()) {
+                throw new RuntimeException("Could not delete file: " + fileName);
+            }
+            else {
+                return Files.deleteIfExists(file);
+            }
+
         }
         catch (IOException exception) {
             throw new RuntimeException("Could not delete file: " + fileName, exception);
