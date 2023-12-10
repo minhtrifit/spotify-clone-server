@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,7 +34,7 @@ public class UploadedController {
             //06a290064eb94a02a58bfeef36002483.png => how to open this file in Web Browser ?
         }catch (Exception exception) {
             return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).body(
-               new ResponseObject("ok", exception.getMessage(), "")
+               new ResponseObject("error", exception.getMessage(), "")
             );
         }
     }
@@ -50,6 +51,28 @@ public class UploadedController {
         }
         catch (Exception exception) {
             return ResponseEntity.noContent().build();
+        }
+    }
+
+    @DeleteMapping("/files/{fileName:.+}")
+    public ResponseEntity<ResponseObject> deleteFileById(@PathVariable String fileName) {
+        try {
+            boolean existed = uploadImageService.deleteFileById(fileName);
+      
+            if (existed) {
+                return ResponseEntity.status(HttpStatus.OK).body(
+                    new ResponseObject("ok", "delete file successfully", fileName)
+                );
+            }
+
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                 new ResponseObject("error", "Not found file", fileName)
+                 );          
+            
+        }catch (Exception exception) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
+               new ResponseObject("error", exception.getMessage(), "")
+            );
         }
     }
 }

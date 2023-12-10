@@ -93,4 +93,14 @@ public class UploadImageService {
             throw new RuntimeException("Could not read file: " + fileName, exception);
         }
     }
+
+    public boolean deleteFileById(String fileName) {
+        try {
+            Path file = storageFolder.resolve(fileName);
+            return Files.deleteIfExists(file);
+        }
+        catch (IOException exception) {
+            throw new RuntimeException("Could not delete file: " + fileName, exception);
+        }
+    }
 }
