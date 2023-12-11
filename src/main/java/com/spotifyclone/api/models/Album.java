@@ -46,6 +46,12 @@ public class Album {
         this.avatar = avatar;
     }
 
+    public Album (String name, Date createdAt, String avatar) {
+        this.name = name;
+        this.createdAt = createdAt;
+        this.avatar = avatar;
+    }
+
     public long getId() {
         return this.id;
     }

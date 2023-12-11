@@ -41,6 +41,38 @@ public class AudioDb {
                 //     new ArrayList<Long>(Arrays.asList(2L)),
                 //     "http://docs.google.com/uc?export=open&id=1A68PdQUGxGgbVDmAsOoTJN8ASpbPgeIF",
                 //     "http://localhost:8080/upload/files/lovestory.png"));
+
+                // audioRepository.save(new Audio(
+                //     4L,
+                //     "Tại Vì Sao",
+                //     new ArrayList<Long>(Arrays.asList(4L)),
+                //     new ArrayList<Long>(Arrays.asList(3L)),
+                //     "http://docs.google.com/uc?export=open&id=1h5zlBC-rSav9T1m2wuEIWrg_5-dDtp8Q",
+                //     "http://localhost:8080/upload/files/taivisao.png"));
+
+                // audioRepository.save(new Audio(
+                //     5L,
+                //     "Chìm Sâu",
+                //     new ArrayList<Long>(Arrays.asList(4L)),
+                //     new ArrayList<Long>(Arrays.asList(3L)),
+                //     "http://docs.google.com/uc?export=open&id=14P0O9z7IjGIo9r5Pxlc66oWuw-eeb42j",
+                //     "http://localhost:8080/upload/files/chimsau.png"));
+
+                // audioRepository.save(new Audio(
+                //     6L,
+                //     "Hit Me Up",
+                //     new ArrayList<Long>(Arrays.asList(5L)),
+                //     new ArrayList<Long>(Arrays.asList(3L)),
+                //     "http://docs.google.com/uc?export=open&id=14P0O9z7IjGIo9r5Pxlc66oWuw-eeb42j",
+                //     "http://localhost:8080/upload/files/hitmeup.png"));
+
+                // audioRepository.save(new Audio(
+                //     7L,
+                //     "Anh Đánh Rơi Người Yêu Này",
+                //     new ArrayList<Long>(Arrays.asList(6L)),
+                //     new ArrayList<Long>(Arrays.asList(1L)),
+                //     "http://docs.google.com/uc?export=open&id=1Diuv9-wQAxhZr5rpj_BdK9PBW-5oS85M",
+                //     "http://localhost:8080/upload/files/anhdanhroinguoiyeunay.png"));
                     
             }
         };

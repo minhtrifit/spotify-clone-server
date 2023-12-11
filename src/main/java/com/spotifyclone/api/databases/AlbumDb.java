@@ -21,7 +21,7 @@ public class AlbumDb {
                 
                 // albumRepository.save(new Album(
                 //     "Top Việt Nam",
-                //     new ArrayList<Long>(Arrays.asList(1L, 2L)),
+                //     new ArrayList<Long>(Arrays.asList(1L, 2L, 7L)),
                 //     new Date(),
                 //     "http://localhost:8080/upload/files/vn.png"));
 
@@ -30,6 +30,12 @@ public class AlbumDb {
                 //     new ArrayList<Long>(Arrays.asList(3L)),
                 //     new Date(),
                 //     "http://localhost:8080/upload/files/usuk.png"));
+
+                // albumRepository.save(new Album(
+                //     "Top Rap Việt",
+                //     new ArrayList<Long>(Arrays.asList(4L, 5L, 6L)),
+                //     new Date(),
+                //     "http://localhost:8080/upload/files/rapviet.png"));
             }
         };
     }

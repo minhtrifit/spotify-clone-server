@@ -33,6 +33,24 @@ public class ArtistDb {
                 //     210497,
                 //     "http://localhost:8080/upload/files/3.png"));
 
+                // artistRepository.save(new Artist(
+                //     4,
+                //     "RPT MCK",
+                //     97160,
+                //     "http://localhost:8080/upload/files/4.png"));
+
+                // artistRepository.save(new Artist(
+                //     5,
+                //     "Binz",
+                //     389233 ,
+                //     "http://localhost:8080/upload/files/5.png"));
+                
+                // artistRepository.save(new Artist(
+                //     6,
+                //     "Amee",
+                //     407802,
+                //     "http://localhost:8080/upload/files/6.png"));
+
             }
         };
     }
