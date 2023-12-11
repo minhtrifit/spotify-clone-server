@@ -33,9 +33,19 @@ public class MusicController {
         return musicService.getAudioByid(id);
     }
 
+    @GetMapping("/audio/artist/{id}")
+    public ResponseEntity<ResponseObject> getAudiosByArtistId(@PathVariable long id) {
+        return musicService.getAudiosByArtistId(id);
+    }
+
     @GetMapping("/artists")
     public ResponseEntity<ResponseObject> getAllArtists() {
         return musicService.loadAllArtists();
+    }
+
+    @GetMapping("/artist/{id}")
+    public ResponseEntity<ResponseObject> getArtistById(@PathVariable long id) {
+        return musicService.getArtistById(id);
     }
 
     @PostMapping("/add/artist")

@@ -154,6 +154,41 @@ public class MusicService {
         }     
     }
 
+    public ResponseEntity<ResponseObject> getArtistById(long id) {
+        try {
+            Optional<Artist> targetArtist = artistRepository.findById(id);
+
+            if(!targetArtist.isPresent()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                    new ResponseObject("404", "Not found artist", id)
+                );
+            }
+
+            return ResponseEntity.status(HttpStatus.OK).body(
+                new ResponseObject("200", "Get artist successfully", targetArtist)
+            );
+
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
+                new ResponseObject("500", "Something wrong", e.getMessage())
+                );
+        }
+    }
+
+    public ResponseEntity<ResponseObject> getAudiosByArtistId(long id) {
+        try {
+            List<Audio> audios = audioRepository.findByArtistId(id);
+
+            return ResponseEntity.status(HttpStatus.OK).body(
+                new ResponseObject("200", "Get audios by artist successfully", audios)
+            );
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
+                new ResponseObject("500", "Something wrong", e.getMessage())
+                );
+        }
+    }
+
     public ResponseEntity<ResponseObject> addNewArtist(Artist artist) {
         try {
              if(artist.getName() == null || artist.getAvatar() == null) {
