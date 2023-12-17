@@ -21,6 +21,7 @@ import com.spotifyclone.api.models.Audio;
 import com.spotifyclone.api.models.AudioLite;
 import com.spotifyclone.api.models.AudioResponse;
 import com.spotifyclone.api.models.Playlist;
+import com.spotifyclone.api.models.PlaylistResponse;
 import com.spotifyclone.api.repositories.AlbumRepository;
 import com.spotifyclone.api.repositories.ArtistRepository;
 import com.spotifyclone.api.repositories.AudioRepository;
@@ -586,6 +587,65 @@ public class MusicService {
 
             return ResponseEntity.status(HttpStatus.OK).body(
                 new ResponseObject("201", "Delete album successfully", id)
+                );
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                new ResponseObject("400", "Something wrong", e.getMessage())
+                );
+        }
+    }
+
+    public ResponseEntity<ResponseObject> getAllPlaylistByUserId(long id) {
+        try {
+            Optional<UserEntity> targetUser = userRepository.findById(id);
+            List<Audio> audioSrc = audioRepository.findAll();
+            List<Artist> artistSrc = artistRepository.findAll();
+
+
+            if(!targetUser.isPresent()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                    new ResponseObject("404", "User not found", id)
+                    );
+            }
+
+            List<Playlist> playlists = playlistRepository.findByUserId(id);
+            List<PlaylistResponse> playlistReponse = new ArrayList<>();
+
+
+            for (Playlist playlist : playlists) {
+                PlaylistResponse newPlaylist = new PlaylistResponse();
+
+                newPlaylist.setId(playlist.getId());
+                newPlaylist.setName(playlist.getName());
+                newPlaylist.setAvatar(playlist.getAvatar());
+
+                for (Audio audio : audioSrc) {
+                    if(playlist.getAudios().contains(audio.getId())) {
+
+                        List<ArtistLite> artists = new ArrayList<>();
+                        List<Long> artistByAudio = audio.getArtists();
+
+                        // Get artist
+                        for (Artist artist: artistSrc) {
+                            if(artistByAudio.contains(artist.getId())) {
+                                artists.add(new ArtistLite(artist.getId(), artist.getName(), artist.getAvatar()));
+                            }
+                        }
+
+                        newPlaylist.modifyAudios(new AudioLite(
+                                audio.getId(),
+                                audio.getName(),
+                                artists,
+                                audio.getUrl(),
+                                audio.getAvatar()));
+                    }
+                }
+
+                playlistReponse.add(newPlaylist);
+            }
+
+            return ResponseEntity.status(HttpStatus.OK).body(
+                new ResponseObject("200", "Get playlist successfully", playlistReponse)
                 );
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
