@@ -36,6 +36,17 @@ password: password
 ```
 <br>
 
+![login](/doc_image/login.png "Login to phpmyadmin")
+
+* Create database before start Java Spring Boot server:
+
+![login](/doc_image/create_db.png "Login to phpmyadmin")
+
+* Init .sql file to database: `spotify_clone.sql`
+
+![login](/doc_image/init_db.png "Login to phpmyadmin")
+
+
 ---
 
 > ## 3. Server config setting
