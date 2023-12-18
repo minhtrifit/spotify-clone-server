@@ -654,6 +654,67 @@ public class MusicService {
         }
     }
 
+    public ResponseEntity<ResponseObject> getPlaylistById(long id) {
+        try {
+            Optional<Playlist> targetPlaylist = playlistRepository.findById(id);
+            List<Audio> audioSrc = audioRepository.findAll();
+            List<Artist> artistSrc = artistRepository.findAll();
+
+            if(!targetPlaylist.isPresent()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                    new ResponseObject("404", "Playlist not found", id)
+                    );
+            }
+
+            PlaylistResponse resPlaylist = new PlaylistResponse();
+
+            resPlaylist.setId(targetPlaylist.get().getId());
+            resPlaylist.setUserId(targetPlaylist.get().getUserId());
+            resPlaylist.setName(targetPlaylist.get().getName());
+            resPlaylist.setAvatar(targetPlaylist.get().getAvatar());
+
+            Optional<UserEntity> targetUser = userRepository.findById(targetPlaylist.get().getUserId());
+
+            if(!targetUser.isPresent()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                    new ResponseObject("404", "User not found", id)
+                    );
+            }
+
+            resPlaylist.setAuthor(targetUser.get().getUsername());
+
+            for (Audio audio : audioSrc) {
+                if(targetPlaylist.get().getAudios().contains(audio.getId())) {
+
+                    List<ArtistLite> artists = new ArrayList<>();
+                    List<Long> artistByAudio = audio.getArtists();
+
+                    // Get artist
+                    for (Artist artist: artistSrc) {
+                        if(artistByAudio.contains(artist.getId())) {
+                            artists.add(new ArtistLite(artist.getId(), artist.getName(), artist.getAvatar()));
+                        }
+                    }
+
+                    resPlaylist.modifyAudios(new AudioLite(
+                        audio.getId(),
+                        audio.getName(),
+                        artists,
+                        audio.getUrl(),
+                        audio.getAvatar()));
+                }
+            }
+
+            return ResponseEntity.status(HttpStatus.OK).body(
+                new ResponseObject("200", "Get playlist by id successfully", resPlaylist)
+                );
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                new ResponseObject("400", "Something wrong", e.getMessage())
+                );
+        }
+    }
+
     public ResponseEntity<ResponseObject> addNewPlayist(@RequestBody Playlist newPlaylist) {
         try {
             if(newPlaylist.getUserId() == 0 || newPlaylist.getName() == null ||

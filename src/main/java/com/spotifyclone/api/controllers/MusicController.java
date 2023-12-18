@@ -111,6 +111,11 @@ public class MusicController {
         return musicService.getAllPlaylistByUserId(id);
     }
 
+    @GetMapping("/playlist/detail/{id}")
+    public ResponseEntity<ResponseObject> getPlaylistById(@PathVariable long id) {
+        return musicService.getPlaylistById(id);
+    }
+
     @PostMapping("/add/playlist")
     @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')") 
     public ResponseEntity<ResponseObject> addNewPlaylist(@RequestBody Playlist newPlaylist) {
