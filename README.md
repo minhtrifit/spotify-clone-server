@@ -410,7 +410,7 @@ npm run start
 * **Playlist Handle**
 
 <details>
-<summary><code>Add new playlist</code> <code><b>/</b></code> <code>http://localhost:8080/api/v1/add/playlist</code></summary>
+<summary><code>Add new playlist</code> <code><b>/</b></code> <code>[GET]: http://localhost:8080/api/v1/add/playlist</code></summary>
 
 ```php
 {
@@ -428,7 +428,7 @@ npm run start
 </details>
 
 <details>
-<summary><code>Edit playlist</code> <code><b>/</b></code> <code>http://localhost:8080/api/v1/edit/playlist</code></summary>
+<summary><code>Edit playlist</code> <code><b>/</b></code> <code>[POST]: http://localhost:8080/api/v1/edit/playlist</code></summary>
 
 ```php
 {
@@ -441,6 +441,40 @@ npm run start
     "name": "Nhạc của sadboiz",
     "audios": [1, 2, 3],
     "avatar": "http://localhost:8080/upload/files/example.png"
+  }
+}
+```
+</details>
+
+<details>
+<summary><code>Modify Add playlist</code> <code><b>/</b></code> <code>[PUT]: http://localhost:8080/api/v1/edit/playlist</code></summary>
+
+```php
+{
+  headers: {
+    "Authorization": `Bearer token`
+  },
+  body: {
+    "userId": 1,
+    "playlistId": 153,
+    "audioId": 4
+  }
+}
+```
+</details>
+
+<details>
+<summary><code>Modify Remove playlist</code> <code><b>/</b></code> <code>[DELETE]: http://localhost:8080/api/v1/edit/playlist</code></summary>
+
+```php
+{
+  headers: {
+    "Authorization": `Bearer token`
+  },
+  body: {
+    "userId": 1,
+    "playlistId": 153,
+    "audioId": 4
   }
 }
 ```

@@ -21,6 +21,7 @@ import com.spotifyclone.api.models.Audio;
 import com.spotifyclone.api.models.AudioLite;
 import com.spotifyclone.api.models.AudioResponse;
 import com.spotifyclone.api.models.Playlist;
+import com.spotifyclone.api.models.PlaylistModify;
 import com.spotifyclone.api.models.PlaylistResponse;
 import com.spotifyclone.api.repositories.AlbumRepository;
 import com.spotifyclone.api.repositories.ArtistRepository;
@@ -528,7 +529,7 @@ public class MusicService {
         }
     }
 
-     public ResponseEntity<ResponseObject> editAlbum(Album editAlbum) {
+    public ResponseEntity<ResponseObject> editAlbum(Album editAlbum) {
         try {
             if(editAlbum.getName() == null || editAlbum.getAudios() == null || editAlbum.getAvatar() == null) {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
@@ -807,6 +808,123 @@ public class MusicService {
             return ResponseEntity.status(HttpStatus.OK).body(
                 new ResponseObject("201", "Edit album successfully", editPlaylist)
                 );
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                new ResponseObject("400", "Something wrong", e.getMessage())
+                );
+        }
+    }
+
+    public ResponseEntity<ResponseObject> modifyAddPlaylistById(PlaylistModify playlistModify) {
+        try {
+            if(playlistModify.getUserId() == 0 || playlistModify.getPlaylistId() == 0 || playlistModify.getAudioId() == 0) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                    new ResponseObject("400", "Bad request", playlistModify)
+                    );
+            }
+
+            List<Playlist> playlistSrc = playlistRepository.findAll();
+            Optional<Playlist> targetPlaylist = playlistRepository.findById(playlistModify.getPlaylistId());
+            Optional<Audio> targetAudio = audioRepository.findById(playlistModify.getAudioId());
+
+            if(!targetPlaylist.isPresent()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                    new ResponseObject("404", "Playlist not found", playlistModify)
+                    );
+            }
+
+            if(targetPlaylist.get().getUserId() != playlistModify.getUserId()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                    new ResponseObject("401", "User ID not match", playlistModify)
+                    );
+            }
+
+            if(!targetAudio.isPresent()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                    new ResponseObject("404", "Audio not found", playlistModify)
+                    );
+            }
+
+            // Update playlist audio list
+            for (Playlist playlist : playlistSrc) {
+                if(playlist.getId() == targetPlaylist.get().getId()) {
+                    // if audio is exist
+                    if(playlist.getAudios().contains(targetAudio.get().getId())) {
+                        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                            new ResponseObject("400", "Audio is exist", playlistModify)
+                            );
+                    }
+                    else {
+                        playlist.modifyAudios(targetAudio.get().getId());
+                        playlistRepository.save(playlist);
+                    }                  
+                }
+            }
+
+            return ResponseEntity.status(HttpStatus.OK).body(
+                new ResponseObject("201", "Modify playlist successfully", playlistModify)
+                );
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                new ResponseObject("400", "Something wrong", e.getMessage())
+                );
+        }
+    }
+
+    public ResponseEntity<ResponseObject> modifyDeletePlaylistById(PlaylistModify playlistModify) {
+        try {
+            if(playlistModify.getUserId() == 0 || playlistModify.getPlaylistId() == 0 || playlistModify.getAudioId() == 0) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                    new ResponseObject("400", "Bad request", playlistModify)
+                    );
+            }
+
+            List<Playlist> playlistSrc = playlistRepository.findAll();
+            Optional<Playlist> targetPlaylist = playlistRepository.findById(playlistModify.getPlaylistId());
+            Optional<Audio> targetAudio = audioRepository.findById(playlistModify.getAudioId());
+            boolean isDelete = false;
+
+            if(!targetPlaylist.isPresent()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                    new ResponseObject("404", "Playlist not found", playlistModify)
+                    );
+            }
+
+            if(targetPlaylist.get().getUserId() != playlistModify.getUserId()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                    new ResponseObject("401", "User ID not match", playlistModify)
+                    );
+            }
+
+            if(!targetAudio.isPresent()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                    new ResponseObject("404", "Audio not found", playlistModify)
+                    );
+            }
+
+            // Update playlist audio list
+            for (Playlist playlist : playlistSrc) {
+                if(playlist.getId() == targetPlaylist.get().getId()) {
+                    if(playlist.getAudios().contains(targetAudio.get().getId())) {
+                        playlist.filterAudios(targetAudio.get().getId());
+                        playlistRepository.save(playlist);
+                        isDelete = true;
+                    }                 
+                }
+            }
+
+            if(isDelete == true) {
+                return ResponseEntity.status(HttpStatus.OK).body(
+                    new ResponseObject("201", "Modify playlist successfully", playlistModify)
+                    );
+            }
+            else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                    new ResponseObject("404", "Audio not found", playlistModify)
+                    );
+            }
+
+            
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
                 new ResponseObject("400", "Something wrong", e.getMessage())

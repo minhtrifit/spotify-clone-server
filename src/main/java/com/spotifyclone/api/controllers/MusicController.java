@@ -4,9 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -14,6 +16,7 @@ import com.spotifyclone.api.models.Album;
 import com.spotifyclone.api.models.Artist;
 import com.spotifyclone.api.models.Audio;
 import com.spotifyclone.api.models.Playlist;
+import com.spotifyclone.api.models.PlaylistModify;
 import com.spotifyclone.api.repositories.ResponseObject;
 import com.spotifyclone.api.services.MusicService;
 
@@ -126,6 +129,18 @@ public class MusicController {
     @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')") 
     public ResponseEntity<ResponseObject> editPlaylist(@RequestBody Playlist editPlaylist) {
         return musicService.editPlaylist(editPlaylist);
+    }
+
+    @PutMapping("/edit/playlist")
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')") 
+    public ResponseEntity<ResponseObject> modifyPlaylistById(@RequestBody PlaylistModify playlistModify) {
+        return musicService.modifyAddPlaylistById(playlistModify);
+    }
+
+    @DeleteMapping("/edit/playlist")
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')") 
+    public ResponseEntity<ResponseObject> modifyDeletePlaylistById(@RequestBody PlaylistModify playlistModify) {
+        return musicService.modifyDeletePlaylistById(playlistModify);
     }
 
     @PostMapping("/delete/playlist/{id}")
