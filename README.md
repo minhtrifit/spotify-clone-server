@@ -410,6 +410,26 @@ npm run start
 * **Playlist Handle**
 
 <details>
+<summary><code>Get all playlist by UserId</code> <code><b>/</b></code> <code>[GET]: http://localhost:8080/api/v1/playlist/id</code></summary>
+
+```php
+{
+
+}
+```
+</details>
+
+<details>
+<summary><code>Get playlist by Id</code> <code><b>/</b></code> <code>[GET]: http://localhost:8080/api/v1/playlist/detail/id</code></summary>
+
+```php
+{
+
+}
+```
+</details>
+
+<details>
 <summary><code>Add new playlist</code> <code><b>/</b></code> <code>[GET]: http://localhost:8080/api/v1/add/playlist</code></summary>
 
 ```php
@@ -441,6 +461,18 @@ npm run start
     "name": "Nhạc của sadboiz",
     "audios": [1, 2, 3],
     "avatar": "http://localhost:8080/upload/files/example.png"
+  }
+}
+```
+</details>
+
+<details>
+<summary><code>Delete playlist by id</code> <code><b>/</b></code> <code>[POST]: http://localhost:8080/api/v1/delete/playlist/id</code></summary>
+
+```php
+{
+  headers: {
+    "Authorization": `Bearer token`
   }
 }
 ```

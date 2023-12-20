@@ -617,6 +617,7 @@ public class MusicService {
                 PlaylistResponse newPlaylist = new PlaylistResponse();
 
                 newPlaylist.setId(playlist.getId());
+                newPlaylist.setUserId(targetUser.get().getId());
                 newPlaylist.setName(playlist.getName());
                 newPlaylist.setAvatar(playlist.getAvatar());
 
