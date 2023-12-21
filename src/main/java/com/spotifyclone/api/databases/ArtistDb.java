@@ -4,7 +4,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.spotifyclone.api.models.Artist;
+// import com.spotifyclone.api.models.Artist;
 import com.spotifyclone.api.repositories.ArtistRepository;
 
 @Configuration
@@ -51,6 +51,35 @@ public class ArtistDb {
                 //     407802,
                 //     "http://localhost:8080/upload/files/6.png"));
 
+                // artistRepository.save(new Artist(
+                //     7,
+                //     "Stephanie Poetri",
+                //     889,
+                //     "http://localhost:8080/upload/files/7.png"));
+
+                // artistRepository.save(new Artist(
+                //     8,
+                //     "Charlie Puth",
+                //     157184,
+                //     "http://localhost:8080/upload/files/8.png"));
+
+                // artistRepository.save(new Artist(
+                //     9,
+                //     "Justin Bieber",
+                //     157909,
+                //     "http://localhost:8080/upload/files/9.png"));
+
+                // artistRepository.save(new Artist(
+                //     10,
+                //     "Tama",
+                //     653,
+                //     "http://localhost:8080/upload/files/10.png"));
+
+                // artistRepository.save(new Artist(
+                //     11,
+                //     "Nhật Phong",
+                //     225541,
+                //     "http://localhost:8080/upload/files/11.png"));
             }
         };
     }
