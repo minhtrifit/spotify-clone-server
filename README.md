@@ -1,36 +1,43 @@
-> # SPOTIFY CLONE SERVER DOCUMENTATION
+# SPOTIFY CLONE SERVER DOCUMENTATION
 
-**Copyright©: minhtrifit**
+<img src="https://img.shields.io/github/stars/minhtrifit/spotify-clone-server"/> ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/minhtrifit/spotify-clone-server)
 
-**[Check Out Client Repository](https://github.com/minhtrifit/spotify-clone-client)**
+![Thumbnail](./showcase/screenshot.png)
 
----
+🎧 🎵 Music project app base on [Spotify 2.0](https://open.spotify.com)
 
-> ## 1. Technical Stack
+This project includes two repository (Client and Server), you can checkout **[client repository](https://github.com/minhtrifit/spotify-clone-client)**
+
+## 💻 Technical Stack
 
 <a href="https://spring.io/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/springio/springio-icon.svg" alt="spring" width="40" height="40"/> </a> <a href="https://expressjs.com" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/express/express-original-wordmark.svg" alt="express" width="40" height="40"/> </a> <a href="https://www.mysql.com/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/mysql/mysql-original-wordmark.svg" alt="mysql" width="40" height="40"/> </a> <a href="https://www.docker.com/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/docker/docker-original-wordmark.svg" alt="docker" width="40" height="40"/> </a>
 
----
+- [Java Spring Boot](https://spring.io/projects/spring-boot) - Spring Boot makes it easy to create stand-alone, production-grade Spring based Applications that you can "just run".
+- [ExpressJS](https://expressjs.com) - Fast, unopinionated, minimalist web framework for Node.js
+- [MySQL](https://www.mysql.com) - Widely used relational database management system (RDBMS).
+- [Docker](https://www.docker.com) - Accelerate how you build, share, and run applications
 
-> ## 2. Install MySQL & PhpMyAdmin (using Docker)
+
+
+## 📦 Installation
+
+### 🐬 🐳 MySQL & PhpMyAdmin (using Docker)
 
 **NOTE: If you have installed MySQL (Xampp or anything else), you can skip this step.**
 
-<br>
+* Run docker-compose:
 
-### Run docker-compose:
+To run MySQL & PhpMyAdmin to interact with database:
 
-* To run MySQL & PhpMyAdmin to interact with database:
-
-```php
+```console
 docker-compose -f .\docker-compose.yml up
 ```
 
-### PhpMyAdmin browser: `http://localhost:8090`
+* PhpMyAdmin browser: `http://localhost:8090`
 
-* Using default account to login to PhpMyAdmin:
+Using default account to login to PhpMyAdmin:
 
-```php
+```console
 username: root
 password: password
 ```
@@ -38,30 +45,25 @@ password: password
 
 ![login](/doc_image/login.png "Login to phpmyadmin")
 
-* Create database before start Java Spring Boot server:
+Create database before start Java Spring Boot server:
 
 ![login](/doc_image/create_db.png "Login to phpmyadmin")
 
-* Init .sql file to database: `spotify_clone.sql`
+Init [spotify_clone.sql]() file to database with path ./spotify_clone.sql
 
 ![login](/doc_image/init_db.png "Login to phpmyadmin")
 
+### ⚙️ Server config setting
 
----
+Note: This repository use **TWO** server.
 
-> ## 3. Server config setting
+- Main server with Spring Boot.</br>
 
-* Note: This repository use **TWO** server.
+- NodeJS (ExpressJS) server to upload audio file.
 
-**1. Main server with Spring Boot.**</br>
+### Spring Boot Server config
 
-**2. NodeJS(ExpressJS) server to upload audio file.**
-
-<br>
-
-#### 3a. Spring Boot Server config
-
-### application.properties: `src/main/resources/application.properties`
+Go to [application.properties]() file with path: `src/main/resources/application.properties`
 
 * This config file to map your Mysql database with Spring Boot project
 * Change: "url, username, password" value for example `spotify_clone, root, password`
@@ -85,17 +87,15 @@ spring.jpa.properties.hibernate.diatect=org.hibernate.dialect.MySQL8InnoDBDialec
 spring.jpa.properties.hibernate.use_nationalized_character_data =true
 ```
 
-<br>
+### ExpressJS Server config
 
-#### 3b. ExpressJS Server config
-
-### .env config: `upload-server/.env`
+Setting [.env]() config file with path: `upload-server/.env`
 
 **Config .env file for ExpressJS server, this server using [Google Drive API](https://www.npmjs.com/package/@googleapis/drive) to upload Audio file.**</br>
 
-**To get Google Drive API key, you can check out: [Youtube tutorial](https://www.youtube.com/watch?v=1y0-IfRW114)**
+To get Google Drive API key, you can check out: [Youtube tutorial](https://www.youtube.com/watch?v=1y0-IfRW114)
 
-**To get FOLDER_ID:**
+To get FOLDER_ID:
 
 * Navigate to the folder in Google Drive.
 * Copy the Folder ID found in the URL. This is everything that comes after “folder/” in the URL. For example, if the URL was “https://drive.google.com/drive/folders/1dyUEebJaFnWa3Z4n0BFMVAXQ7mfUH11g”, then the Folder ID would be “1dyUEebJaFnWa3Z4n0BFMVAXQ7mfUH11g”.
@@ -110,18 +110,24 @@ REFRESH_TOKEN=value
 FOLDER_ID=value
 ```
 
-### Run audio upload server: `upload-server/`
+### Run audio upload server (ExpressJS server): `upload-server/`
 
-```bash
+Intall packages & dependencies
+```console
 npm install
+```
+
+Or install packages with legacy peer dependencies.
+```console
+npm install --legacy-peer-deps
+```
+
+Run server project
+```console
 npm run start
 ```
 
-<br>
-
----
-
-> ## 4. API Documentation
+## ⚡️API Documentation
 
 * **Authentication & Authorization** 
 
@@ -514,17 +520,17 @@ npm run start
 
 <br>
 
-#### More: [Youtube demo video](https://youtu.be/iLBWCdZQNpQ)
+## ▶️ YouTube Demo
 
----
+[![Thumnail](https://img.youtube.com/vi/iLBWCdZQNpQ/0.jpg)](https://youtu.be/iLBWCdZQNpQ)
 
-> ### 5. More Documentation
+## More Documentation
 
-**https://copyprogramming.com/howto/utf-8-character-encoding-is-not-working-for-spring-boot**
+[Spring Boot urf-8 encoding support](https://copyprogramming.com/howto/utf-8-character-encoding-is-not-working-for-spring-boot)
 
----
-
-> ### 6. Stay In Touch
+## 💌 Contact
 
 - Author - [minhtrifit](https://minhtrifitdev.netlify.app)
 - [Github](https://github.com/minhtrifit)
+
+> CopyRight© minhtrifit
